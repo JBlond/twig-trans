@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="twig-trans">
+    <description>twig-trans</description>
+    <rule ref="PSR12" />
+    <file>src</file>
+</ruleset>

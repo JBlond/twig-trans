@@ -1,0 +1,39 @@
+{
+	"name" : "jblond/twig-trans",
+	"type" : "library",
+	"description" : "",
+	"license" : "MIT",
+	"keywords" : [
+		"php",
+		"twig",
+        "trans",
+        "translation",
+        "endtrans",
+        "po file"
+	],
+	"authors" : [{
+			"name" : "Mario",
+			"email" : "leet31337@web.de"
+		}
+	],
+	"require" : {
+		"php" : ">=7.2",
+        "ext-gettext": "*",
+        "ext-mbstring": "*",
+        "twig/twig": ">=3.0.0"
+    },
+	"require-dev" : {
+		"squizlabs/php_codesniffer" : "*"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"jblond\\" : "src/jblond"
+		}
+	},
+	"config" : {
+		"classmap-authoritative" : true
+	},
+	"scripts" : {
+		"php_src" : "phpcs --standard=phpcs.xml -s -p --colors ./src/"
+	}
+}
