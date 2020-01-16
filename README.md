@@ -67,7 +67,7 @@ try {
     return;
 }
 
-$tpl->render();
+echo $tpl->render();
 ```
 
 
