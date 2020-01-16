@@ -64,7 +64,7 @@ try {
     $tpl = $twig->load('default.twig');
 } catch (Exception $exception) {
     echo $exception->getMessage();
-    return;
+    die();
 }
 
 echo $tpl->render();
