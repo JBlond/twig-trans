@@ -72,9 +72,9 @@ class Translation implements ExtensionInterface
      */
     public function getTests()
     {
-        return array(
+        return [
             new TwigTest('Translation', 'test')
-        );
+        ];
     }
 
     /**
@@ -82,9 +82,9 @@ class Translation implements ExtensionInterface
      */
     public function getTokenParsers()
     {
-        return array(
+        return [
             new TransTag()
-        );
+        ];
     }
 
     /**

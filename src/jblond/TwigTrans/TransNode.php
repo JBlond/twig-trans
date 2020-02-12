@@ -34,7 +34,7 @@ class TransNode extends Node
         $lineno = 0,
         $tag = null
     ) {
-        $nodes = array('body' => $body);
+        $nodes = ['body' => $body];
         if (null !== $count) {
             $nodes['count'] = $count;
         }
@@ -45,7 +45,7 @@ class TransNode extends Node
             $nodes['notes'] = $notes;
         }
 
-        parent::__construct($nodes, array(), $lineno, $tag);
+        parent::__construct($nodes, [], $lineno, $tag);
     }
 
     /**
@@ -70,7 +70,7 @@ class TransNode extends Node
             $message = trim($this->getNode('notes')->getAttribute('data'));
 
             // line breaks are not allowed cause we want a single line comment
-            $message = str_replace(array("\n", "\r"), ' ', $message);
+            $message = str_replace(["\n", "\r"], ' ', $message);
             $compiler->write("// notes: {$message}\n");
         }
 
@@ -143,10 +143,10 @@ class TransNode extends Node
             $body instanceof ConstantExpression ||
             $body instanceof TempNameExpression
         ) {
-            return array($body, array());
+            return [$body, []];
         }
 
-        $vars = array();
+        $vars = [];
         if (count($body)) {
             $msg = '';
 
@@ -171,7 +171,7 @@ class TransNode extends Node
             $msg = $body->getAttribute('data');
         }
 
-        return array(new Node(array(new ConstantExpression(trim($msg), $body->getTemplateLine()))), $vars);
+        return [new Node([new ConstantExpression(trim($msg), $body->getTemplateLine())]), $vars];
     }
 
     /**

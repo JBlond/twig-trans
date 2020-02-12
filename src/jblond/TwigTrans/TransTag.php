@@ -27,21 +27,21 @@ class TransTag extends AbstractTokenParser
             $body = $this->parser->getExpressionParser()->parseExpression();
         } else {
             $stream->expect(Token::BLOCK_END_TYPE);
-            $body = $this->parser->subparse(array($this, 'decideForFork'));
+            $body = $this->parser->subparse([$this, 'decideForFork']);
             $next = $stream->next()->getValue();
 
             if ('plural' === $next) {
                 $count = $this->parser->getExpressionParser()->parseExpression();
                 $stream->expect(Token::BLOCK_END_TYPE);
-                $plural = $this->parser->subparse(array($this, 'decideForFork'));
+                $plural = $this->parser->subparse([$this, 'decideForFork']);
 
                 if ('notes' === $stream->next()->getValue()) {
                     $stream->expect(Token::BLOCK_END_TYPE);
-                    $notes = $this->parser->subparse(array($this, 'decideForEnd'), true);
+                    $notes = $this->parser->subparse([$this, 'decideForEnd'], true);
                 }
             } elseif ('notes' === $next) {
                 $stream->expect(Token::BLOCK_END_TYPE);
-                $notes = $this->parser->subparse(array($this, 'decideForEnd'), true);
+                $notes = $this->parser->subparse([$this, 'decideForEnd'], true);
             }
         }
 
@@ -57,7 +57,7 @@ class TransTag extends AbstractTokenParser
      */
     public function decideForFork(Token $token)
     {
-        return $token->test(array('plural', 'notes', 'endtrans'));
+        return $token->test(['plural', 'notes', 'endtrans']);
     }
 
     /**

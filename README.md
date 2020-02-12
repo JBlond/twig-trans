@@ -41,11 +41,11 @@ bindtextdomain("Web_Content", "./locale");
 // choose Domain
 textdomain("Web_Content");
 
-$twigConfig = array(
+$twigConfig = [
     'cache' => false,
     'debug' => true,
     'auto_reload' => true
-);
+];
 
 $twigLoader = new FilesystemLoader('./tpl/');
 $twig = new Environment($twigLoader, $twigConfig);
