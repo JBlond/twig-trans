@@ -56,10 +56,10 @@ class TransNode extends Node
         $compiler->addDebugInfo($this);
         $msg1 = '';
 
-        list($msg, $vars) = $this->compileString($this->getNode('body'));
+        [$msg, $vars] = $this->compileString($this->getNode('body'));
 
         if ($this->hasNode('plural')) {
-            list($msg1, $vars1) = $this->compileString($this->getNode('plural'));
+            [$msg1, $vars1] = $this->compileString($this->getNode('plural'));
 
             $vars = array_merge($vars, $vars1);
         }
