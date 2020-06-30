@@ -11,6 +11,10 @@ use Twig\TwigFilter;
 use Twig\TwigFunction;
 use Twig\TwigTest;
 
+/**
+ * Class Translation
+ * @package jblond\TwigTrans
+ */
 class Translation implements ExtensionInterface
 {
 
