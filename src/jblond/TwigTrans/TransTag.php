@@ -10,6 +10,10 @@ use Twig\Node\TextNode;
 use Twig\Token;
 use Twig\TokenParser\AbstractTokenParser;
 
+/**
+ * Class TransTag
+ * @package jblond\TwigTrans
+ */
 class TransTag extends AbstractTokenParser
 {
     /**
