@@ -2,7 +2,6 @@
 
 namespace jblond\TwigTrans;
 
-use Twig\ExpressionParser;
 use Twig\Extension\ExtensionInterface;
 use Twig\Node\Expression\Binary\AndBinary;
 use Twig\Node\Expression\Binary\OrBinary;
@@ -14,6 +13,11 @@ use Twig\TwigTest;
 
 class Translation implements ExtensionInterface
 {
+
+    /**
+     *
+     */
+    private const OPERATOR_LEFT = 1;
 
     /**
      * Override function to have I18n
@@ -108,12 +112,12 @@ class Translation implements ExtensionInterface
                 '||' => [
                     'precedence' => 10,
                     'class' => OrBinary::class,
-                    'associativity' => ExpressionParser::OPERATOR_LEFT
+                    'associativity' => self::OPERATOR_LEFT
                 ],
                 '&&' => [
                     'precedence' => 15,
                     'class' => AndBinary::class,
-                    'associativity' => ExpressionParser::OPERATOR_LEFT
+                    'associativity' => self::OPERATOR_LEFT
                 ],
             ],
         ];
