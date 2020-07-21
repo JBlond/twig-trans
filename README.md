@@ -7,7 +7,7 @@
 This is the replacement for the old **Twig** Extensions **I18n** / **Intl** for the translation with po / mo 
 **gettext** files.
 
-I didn't wanted to Symfony, but Twig only. Symfony seemed to be too much overhead.
+I didn't wanted to install Symfony, but Twig only. Symfony seemed to be too much overhead.
 
 This extension enable Twig templates to use `|trans` and `{% trans %}` + `{% endtrans %}` again
 
