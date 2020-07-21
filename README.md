@@ -32,7 +32,7 @@ require '../vendor/autoload.php';
 $langCode = 'de_DE';
 putenv("LC_ALL=$langCode.UTF-8");
 if (setlocale(LC_ALL, "$langCode.UTF-8") === false) {
-    sprintf('Language Code %s not found', $langCode);
+    echo sprintf('Language Code %s not found', $langCode);
 }
 
 // set the path to the translation
