@@ -17,12 +17,6 @@ use Twig\TwigTest;
  */
 class Translation implements ExtensionInterface
 {
-
-    /**
-     *
-     */
-    private const OPERATOR_LEFT = 1;
-
     /**
      * Override function to have I18n
      * @param string $value
@@ -116,12 +110,12 @@ class Translation implements ExtensionInterface
                 '||' => [
                     'precedence' => 10,
                     'class' => OrBinary::class,
-                    'associativity' => self::OPERATOR_LEFT
+                    'associativity' => 1
                 ],
                 '&&' => [
                     'precedence' => 15,
                     'class' => AndBinary::class,
-                    'associativity' => self::OPERATOR_LEFT
+                    'associativity' => 1
                 ],
             ],
         ];
