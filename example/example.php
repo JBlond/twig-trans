@@ -32,9 +32,9 @@ $twigLoader = new FilesystemLoader('./tpl/');
 $twig = new Environment($twigLoader, $twigConfig);
 
 // this is for the filter |trans
-$filter = new TwigFilter('trans', function (Environment $env, $context, $string) {
+$filter = new TwigFilter('trans', function ($context, $string) {
     return Translation::transGetText($string, $context);
-}, ['needs_context' => true, 'needs_environment' => true]);
+}, ['needs_context' => true]);
 
 // load the i18n extension for using the translation tag for twig
 // {% trans %}my string{% endtrans %}
