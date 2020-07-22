@@ -18,10 +18,10 @@ class Translation implements ExtensionInterface
     /**
      * Override function to have I18n
      * @param string $value
-     * @param $context
+     * @param array $context
      * @return string
      */
-    public static function transGetText($value, $context)
+    public static function transGetText(string $value, array $context)
     {
         $getTextString = gettext($value);
         //if empty return original value
