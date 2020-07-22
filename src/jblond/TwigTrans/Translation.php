@@ -2,10 +2,8 @@
 
 namespace jblond\TwigTrans;
 
+use Twig\Compiler;
 use Twig\Extension\ExtensionInterface;
-use Twig\Node\Expression\Binary\AndBinary;
-use Twig\Node\Expression\Binary\OrBinary;
-use Twig\Node\Expression\Unary\NotUnary;
 use Twig\NodeVisitor\MacroAutoImportNodeVisitor;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -104,17 +102,35 @@ class Translation implements ExtensionInterface
     {
         return [
             [
-                '!' => ['precedence' => 50, 'class' => NotUnary::class],
+                '!' => [
+                    'precedence' => 50,
+                    'class' => new class {
+                        public function operator(Compiler $compiler): Compiler
+                        {
+                            return $compiler->raw('!');
+                        }
+                    }
+                ],
             ],
             [
                 '||' => [
                     'precedence' => 10,
-                    'class' => OrBinary::class,
+                    'class' => new class {
+                        public function operator(Compiler $compiler): Compiler
+                        {
+                            return $compiler->raw('||');
+                        }
+                    },
                     'associativity' => 1
                 ],
                 '&&' => [
                     'precedence' => 15,
-                    'class' => AndBinary::class,
+                    'class' => new class {
+                        public function operator(Compiler $compiler): Compiler
+                        {
+                            return $compiler->raw('&&');
+                        }
+                    },
                     'associativity' => 1
                 ],
             ],
