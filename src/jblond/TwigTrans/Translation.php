@@ -16,6 +16,11 @@ use Twig\TwigTest;
 class Translation implements ExtensionInterface
 {
     /**
+     * local version of ExpressionParser::OPERATOR_LEFT
+     */
+    protected const OPERATOR_LEFT = 1;
+
+    /**
      * Override function to have I18n
      * @param string $value
      * @param array $context
@@ -121,7 +126,7 @@ class Translation implements ExtensionInterface
                             return $compiler->raw('||');
                         }
                     },
-                    'associativity' => 1
+                    'associativity' => self::OPERATOR_LEFT
                 ],
                 '&&' => [
                     'precedence' => 15,
@@ -131,7 +136,7 @@ class Translation implements ExtensionInterface
                             return $compiler->raw('&&');
                         }
                     },
-                    'associativity' => 1
+                    'associativity' => self::OPERATOR_LEFT
                 ],
             ],
         ];
