@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This is the replacement for the old **Twig** Extensions **I18n** / **Intl** for the translation with po / mo 
+This is the replacement for the old **Twig** Extensions **I18n** / **Intl** / **I18nExtension** for the translation with po / mo 
 **gettext** files.
 
 I didn't wanted to install Symfony, but Twig only. Symfony seemed to be too much overhead.
