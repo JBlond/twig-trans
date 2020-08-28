@@ -54,10 +54,10 @@ $twig = new Environment($twigLoader, $twigConfig);
 $filter = new TwigFilter('trans', function ($context, $string) {
     return Translation::TransGetText($string, $context);
 }, ['needs_context' => true]);
+$twig->addFilter($filter);
 
 // load the i18n extension for using the translation tag for twig
 // {% trans %}my string{% endtrans %}
-$twig->addFilter($filter);
 $twig->addExtension(new Translation());
 
 try {
