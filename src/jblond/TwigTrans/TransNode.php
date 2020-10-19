@@ -23,7 +23,7 @@ class TransNode extends Node
      * @param Node|null $plural
      * @param AbstractExpression|null $count
      * @param Node|null $notes
-     * @param int $lineno
+     * @param int $lineNo
      * @param null $tag
      */
     public function __construct(
@@ -31,7 +31,7 @@ class TransNode extends Node
         Node $plural = null,
         AbstractExpression $count = null,
         Node $notes = null,
-        $lineno = 0,
+        $lineNo = 0,
         $tag = null
     ) {
         $nodes = ['body' => $body];
@@ -45,7 +45,7 @@ class TransNode extends Node
             $nodes['notes'] = $notes;
         }
 
-        parent::__construct($nodes, [], $lineno, $tag);
+        parent::__construct($nodes, [], $lineNo, $tag);
     }
 
     /**

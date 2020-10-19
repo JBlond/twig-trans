@@ -21,7 +21,7 @@ class TransTag extends AbstractTokenParser
      */
     public function parse(Token $token)
     {
-        $lineno = $token->getLine();
+        $lineNo = $token->getLine();
         $stream = $this->parser->getStream();
         $count = null;
         $plural = null;
@@ -50,9 +50,9 @@ class TransTag extends AbstractTokenParser
         }
 
         $stream->expect(Token::BLOCK_END_TYPE);
-        $this->checkTransString($body, $lineno);
+        $this->checkTransString($body, $lineNo);
 
-        return new TransNode($body, $plural, $count, $notes, $lineno, $this->getTag());
+        return new TransNode($body, $plural, $count, $notes, $lineNo, $this->getTag());
     }
 
     /**
@@ -83,10 +83,10 @@ class TransTag extends AbstractTokenParser
 
     /**
      * @param Node $body
-     * @param $lineno
+     * @param int $lineNo
      * @throws SyntaxError
      */
-    protected function checkTransString(Node $body, $lineno)
+    protected function checkTransString(Node $body, int $lineNo)
     {
         foreach ($body as $i => $node) {
             if (
@@ -97,7 +97,7 @@ class TransTag extends AbstractTokenParser
             }
             throw new SyntaxError(
                 sprintf('The text to be translated with "trans" can only contain references to simple variables'),
-                $lineno
+                $lineNo
             );
         }
     }
