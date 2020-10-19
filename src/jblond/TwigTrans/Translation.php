@@ -141,12 +141,4 @@ class Translation implements ExtensionInterface
             ],
         ];
     }
-
-    /**
-     * @return bool
-     */
-    public function test()
-    {
-        return true;
-    }
 }
