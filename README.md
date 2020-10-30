@@ -87,3 +87,7 @@ see [License](LICENSE)
 ```bash
 composer run-script php_src
 ```
+
+## Contribution, wishes and bug
+
+Raise an [issue](https://github.com/JBlond/twig-trans/issues)
