@@ -179,7 +179,7 @@ class TransNode extends Node
      *
      * @return string
      */
-    protected function getTransFunction($plural)
+    protected function getTransFunction(bool $plural)
     {
         return $plural ? 'ngettext' : 'gettext';
     }
