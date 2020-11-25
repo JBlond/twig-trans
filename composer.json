@@ -9,7 +9,8 @@
         "trans",
         "translation",
         "endtrans",
-        "po file"
+        "po file",
+        "i18n"
 	],
 	"authors" : [{
 			"name" : "Mario",
@@ -23,17 +24,25 @@
         "twig/twig": ">=3.0.0"
     },
 	"require-dev" : {
-		"squizlabs/php_codesniffer" : "*"
+		"squizlabs/php_codesniffer" : "*",
+        "phpunit/phpunit": "^7 || ^8 || ^9"
 	},
 	"autoload" : {
 		"psr-4" : {
 			"jblond\\" : "src/jblond"
 		}
 	},
-	"config" : {
+    "autoload-dev": {
+        "psr-4": {
+            "jblond\\": "tests/"
+        }
+    },
+    "config" : {
 		"classmap-authoritative" : true
 	},
 	"scripts" : {
-		"php_src" : "phpcs --standard=phpcs.xml -s -p --colors ./src/"
-	}
+		"php_src" : "phpcs --standard=phpcs.xml -s -p --colors ./src/",
+		"php_test" : "phpcs --standard=phpcs.xml -s -p --colors ./tests/",
+        "phpunit": "phpunit ./tests/"
+    }
 }
