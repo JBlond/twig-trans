@@ -58,7 +58,7 @@ class Translation implements ExtensionInterface
     public function getFilters()
     {
         return [
-            new TwigFilter('Translation', 'transGetText'),
+            new TwigFilter('Translation', [$this, 'transGetText']),
         ];
     }
 
@@ -78,7 +78,7 @@ class Translation implements ExtensionInterface
     public function getTests()
     {
         return [
-            new TwigTest('Translation', 'test')
+            new TwigTest('Translation', null)
         ];
     }
 
@@ -103,7 +103,7 @@ class Translation implements ExtensionInterface
     /**
      * @inheritDoc
      */
-    public function getOperators()
+    public function getOperators(): array
     {
         return [
             [

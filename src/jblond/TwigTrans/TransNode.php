@@ -24,15 +24,15 @@ class TransNode extends Node
      * @param AbstractExpression|null $count
      * @param Node|null $notes
      * @param int $lineNo
-     * @param null $tag
+     * @param string|null $tag
      */
     public function __construct(
         Node $body,
         Node $plural = null,
         AbstractExpression $count = null,
         Node $notes = null,
-        $lineNo = 0,
-        $tag = null
+        int $lineNo = 0,
+        ?string $tag = null
     ) {
         $nodes = ['body' => $body];
         if (null !== $count) {
@@ -51,10 +51,10 @@ class TransNode extends Node
     /**
      * {@inheritdoc}
      */
-    public function compile(Compiler $compiler)
+    public function compile(Compiler $compiler): void
     {
         $compiler->addDebugInfo($this);
-        $msg1 = '';
+        $msg1 = new Node();
 
         [$msg, $vars] = $this->compileString($this->getNode('body'));
 
@@ -85,7 +85,7 @@ class TransNode extends Node
                     ->raw(', ')
                     ->subcompile($msg1)
                     ->raw(', abs(')
-                    ->subcompile($this->hasNode('count') ? $this->getNode('count') : null)
+                    ->subcompile($this->hasNode('count') ? $this->getNode('count') : new Node())
                     ->raw(')')
                 ;
             }
@@ -97,7 +97,7 @@ class TransNode extends Node
                     $compiler
                         ->string('%count%')
                         ->raw(' => abs(')
-                        ->subcompile($this->hasNode('count') ? $this->getNode('count') : null)
+                        ->subcompile($this->hasNode('count') ? $this->getNode('count') : new Node())
                         ->raw('), ')
                     ;
                 } else {
@@ -122,7 +122,7 @@ class TransNode extends Node
                     ->raw(', ')
                     ->subcompile($msg1)
                     ->raw(', abs(')
-                    ->subcompile($this->hasNode('count') ? $this->getNode('count') : null)
+                    ->subcompile($this->hasNode('count') ? $this->getNode('count') : new Node())
                     ->raw(')')
                 ;
             }
@@ -136,7 +136,7 @@ class TransNode extends Node
      *
      * @return array
      */
-    protected function compileString(Node $body)
+    protected function compileString(Node $body): array
     {
         if (
             $body instanceof NameExpression ||
@@ -152,8 +152,8 @@ class TransNode extends Node
 
             /** @var Node $node */
             foreach ($body as $node) {
-                if (get_class($node) === 'Node' && $node->getNode(0) instanceof TempNameExpression) {
-                    $node = $node->getNode(1);
+                if (get_class($node) === 'Node' && $node->getNode('0') instanceof TempNameExpression) {
+                    $node = $node->getNode('1');
                 }
 
                 if ($node instanceof PrintNode) {
@@ -179,7 +179,7 @@ class TransNode extends Node
      *
      * @return string
      */
-    protected function getTransFunction(bool $plural)
+    protected function getTransFunction(bool $plural): string
     {
         return $plural ? 'ngettext' : 'gettext';
     }
