@@ -86,7 +86,7 @@ class TransTag extends AbstractTokenParser
      * @param int $lineNo
      * @throws SyntaxError
      */
-    protected function checkTransString(Node $body, int $lineNo)
+    protected function checkTransString(Node $body, int $lineNo): void
     {
         foreach ($body as $i => $node) {
             if (
