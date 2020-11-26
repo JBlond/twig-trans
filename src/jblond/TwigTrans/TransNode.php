@@ -31,8 +31,8 @@ class TransNode extends Node
         Node $plural = null,
         AbstractExpression $count = null,
         Node $notes = null,
-        $lineNo = 0,
-        $tag = null
+        int $lineNo = 0,
+        ?string $tag = null
     ) {
         $nodes = ['body' => $body];
         if (null !== $count) {
