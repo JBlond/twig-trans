@@ -103,7 +103,7 @@ class Translation implements ExtensionInterface
     /**
      * @inheritDoc
      */
-    public function getOperators()
+    public function getOperators(): array
     {
         return [
             [

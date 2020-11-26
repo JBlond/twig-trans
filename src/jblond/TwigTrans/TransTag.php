@@ -19,7 +19,7 @@ class TransTag extends AbstractTokenParser
     /**
      * {@inheritdoc}
      */
-    public function parse(Token $token)
+    public function parse(Token $token): Node
     {
         $lineNo = $token->getLine();
         $stream = $this->parser->getStream();
@@ -59,7 +59,7 @@ class TransTag extends AbstractTokenParser
      * @param Token $token
      * @return bool
      */
-    public function decideForFork(Token $token)
+    public function decideForFork(Token $token): bool
     {
         return $token->test(['plural', 'notes', 'endtrans']);
     }
@@ -68,7 +68,7 @@ class TransTag extends AbstractTokenParser
      * @param Token $token
      * @return bool
      */
-    public function decideForEnd(Token $token)
+    public function decideForEnd(Token $token): bool
     {
         return $token->test('endtrans');
     }
@@ -76,7 +76,7 @@ class TransTag extends AbstractTokenParser
     /**
      * {@inheritdoc}
      */
-    public function getTag()
+    public function getTag(): string
     {
         return 'trans';
     }

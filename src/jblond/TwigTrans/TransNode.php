@@ -51,7 +51,7 @@ class TransNode extends Node
     /**
      * {@inheritdoc}
      */
-    public function compile(Compiler $compiler)
+    public function compile(Compiler $compiler): void
     {
         $compiler->addDebugInfo($this);
         $msg1 = new Node();
@@ -136,7 +136,7 @@ class TransNode extends Node
      *
      * @return array
      */
-    protected function compileString(Node $body)
+    protected function compileString(Node $body): array
     {
         if (
             $body instanceof NameExpression ||
@@ -179,7 +179,7 @@ class TransNode extends Node
      *
      * @return string
      */
-    protected function getTransFunction(bool $plural)
+    protected function getTransFunction(bool $plural): string
     {
         return $plural ? 'ngettext' : 'gettext';
     }
