@@ -26,7 +26,7 @@ class Translation implements ExtensionInterface
      * @param array $context
      * @return string
      */
-    public static function transGetText(string $value, array $context)
+    public static function transGetText(string $value, array $context): string
     {
         $getTextString = gettext($value);
         //if empty return original value
@@ -55,7 +55,7 @@ class Translation implements ExtensionInterface
     /**
      * @inheritDoc
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('Translation', [$this, 'transGetText']),
@@ -65,7 +65,7 @@ class Translation implements ExtensionInterface
     /**
      * @inheritDoc
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('transGetText', [$this, 'transGetText']),
@@ -75,7 +75,7 @@ class Translation implements ExtensionInterface
     /**
      * @inheritDoc
      */
-    public function getTests()
+    public function getTests(): array
     {
         return [
             new TwigTest('Translation', null)
@@ -85,7 +85,7 @@ class Translation implements ExtensionInterface
     /**
      * @inheritDoc
      */
-    public function getTokenParsers()
+    public function getTokenParsers(): array
     {
         return [
             new TransTag()
@@ -95,7 +95,7 @@ class Translation implements ExtensionInterface
     /**
      * @inheritDoc
      */
-    public function getNodeVisitors()
+    public function getNodeVisitors(): array
     {
         return [new MacroAutoImportNodeVisitor()];
     }
