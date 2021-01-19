@@ -9,7 +9,7 @@ This is the replacement for the old **Twig** Extensions **I18n** / **Intl** / **
 
 I didn't want to install Symfony, but Twig only. Symfony seemed to be too much overhead.
 
-This extension enable Twig templates to use `|trans` and `{% trans %}` + `{% endtrans %}` again
+This extension enables Twig templates to use `|trans` and `{% trans %}` + `{% endtrans %}` again
 
 ## Install
 
