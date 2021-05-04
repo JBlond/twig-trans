@@ -43,9 +43,17 @@ class Translation implements ExtensionInterface
      */
     private static function replaceContext(string $string, array $context): string
     {
+        // Without the brackets there is no need to run the rest of this method.
+        if (mb_strpos($string, '{{') === false) {
+            return $string;
+        }
         foreach ($context as $key => $value) {
             if (is_array($value)) {
                 return self::replaceContext($string, $value);
+            }
+            // Ignore objects, since only simple variables can be used
+            if (is_object($value)) {
+                continue;
             }
             $string = str_replace('{{ ' . $key . ' }}', $value, $string);
         }
