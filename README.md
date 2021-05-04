@@ -86,6 +86,8 @@ see [License](LICENSE)
 
 ```bash
 composer run-script php_src
+composer run-script php_test
+composer run-script phpunit
 ```
 
 ## Contribution, wishes and bug
