@@ -96,7 +96,7 @@ class TransTag extends AbstractTokenParser
                 continue;
             }
             throw new SyntaxError(
-                sprintf('The text to be translated with "trans" can only contain references to simple variables'),
+                'The text to be translated with "trans" can only contain references to simple variables',
                 $lineNo
             );
         }
