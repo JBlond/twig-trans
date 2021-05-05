@@ -47,7 +47,7 @@ class TransTest extends NodeTestCase
     /**
      * @return array
      */
-    public function getTests() : array
+    public function getTests(): array
     {
         $tests = [];
 
