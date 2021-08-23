@@ -74,8 +74,8 @@ echo $tpl->render();
 ## Requirements
 
 * PHP 7.2 or greater
-* PHP Multibyte String 
-' gettext'
+* PHP Multibyte String ' gettext'
+* Twig >= 3.0
 
 
 ### License (MIT License)
