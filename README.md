@@ -1,6 +1,7 @@
 # Twig Trans
 
-[![Latest Version](https://img.shields.io/github/release/JBlond/twig-trans.svg?style=flat-square&label=Release)](https://github.com/JBlond/twig-trans/releases)
+[![Latest Version](https://img.shields.io/github/release/JBlond/twig-trans.svg?style=flat-square&label=Release)](https://github.com/JBlond/twig-trans/releases) 
+[![Packagist Installs](https://badgen.net/packagist/dt/jblond/twig-trans)](https://packagist.org/packages/jblond/twig-trans)
 
 ## Introduction
 
