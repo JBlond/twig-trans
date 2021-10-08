@@ -50,6 +50,9 @@ $twigConfig = [
 
 $twigLoader = new FilesystemLoader('./tpl/');
 $twig = new Environment($twigLoader, $twigConfig);
+// if you need  {{ dump() }} in the twig templates add
+//$twig->addExtension(new DebugExtension());
+// and use Twig\Extension\DebugExtension;  // at the top of the file
 
 // this is for the filter |trans
 $filter = new TwigFilter(
