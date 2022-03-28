@@ -85,6 +85,9 @@ echo $tpl->render();
 * PHP Multibyte String ' gettext'
 * Twig >= 3.0
 
+### Optional Requirements
+
+* xgettext for Extract / generating po files.
 
 ### License (MIT License)
 
