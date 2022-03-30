@@ -19,7 +19,6 @@ use function sprintf;
  */
 class TransTest extends NodeTestCase
 {
-
     /**
      * @covers TransNode::__construct
      */
