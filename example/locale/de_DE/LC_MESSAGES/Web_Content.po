@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: product-information-rekovelle\n"
+"Project-Id-Version: Test\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -12,3 +12,6 @@ msgstr ""
 #: test id
 msgid "my string"
 msgstr "Meine Zeichenkette"
+
+msgid "Hello %name%"
+msgstr "Hallo %name%"
