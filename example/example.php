@@ -52,4 +52,4 @@ try {
     die();
 }
 
-echo $tpl->render();
+echo $tpl->render(['name' => 'James']);
