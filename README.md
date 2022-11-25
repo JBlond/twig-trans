@@ -75,7 +75,8 @@ try {
     die();
 }
 
-echo $tpl->render();
+// the array parameter (context) is optional for the render function
+echo $tpl->render(['key1' => 'value1', 'key2' => 'value2']);
 ```
 
 
