@@ -23,7 +23,7 @@ bindtextdomain("Web_Content", "./locale");
 textdomain("Web_Content");
 
 $twigConfig = [
-    'cache' => false,
+    'cache' => './cache',
     'debug' => true,
     'auto_reload' => true
 ];

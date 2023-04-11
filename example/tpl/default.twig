@@ -18,6 +18,17 @@
 
 THE END
 
+<div>
+    {% trans %}
+        new text by tag
+    {% endtrans %}
+</div>
+
+<div>
+    {% set test = 'another text by filter'|trans %}
+    {{ test }}
+</div>
+
 <div style="clear:both;"></div>
 </body>
 </html>
