@@ -1,7 +1,7 @@
 {
     "name": "jblond/twig-trans",
     "type": "library",
-    "description": "",
+    "description": "Twig 3 translation extension ",
     "license": "MIT",
     "keywords": [
         "php",
