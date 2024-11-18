@@ -3,6 +3,7 @@
 namespace jblond\TwigTrans;
 
 use Twig\Environment;
+use Twig\Error\SyntaxError;
 use Twig\Node\Expression\AssignNameExpression;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\GetAttrExpression;
@@ -28,6 +29,9 @@ class MacroAutoImportNodeVisitor implements NodeVisitorInterface
         return $node;
     }
 
+    /**
+     * @throws SyntaxError
+     */
     public function leaveNode(Node $node, Environment $env): Node
     {
         if ($node instanceof ModuleNode) {
@@ -35,7 +39,7 @@ class MacroAutoImportNodeVisitor implements NodeVisitorInterface
             if ($this->hasMacroCalls) {
                 $node->getNode('constructor_end')->setNode(
                     '_auto_macro_import',
-                    new ImportNode(new NameExpression('_self', 0), new AssignNameExpression('_self', 0), 0, true)
+                    new ImportNode(new NameExpression('_self', 0), new AssignNameExpression('_self', 0), 0)
                 );
             }
         } elseif ($this->inAModule) {
