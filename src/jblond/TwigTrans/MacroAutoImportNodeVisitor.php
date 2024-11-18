@@ -16,9 +16,20 @@ use Twig\NodeVisitor\NodeVisitorInterface;
 
 class MacroAutoImportNodeVisitor implements NodeVisitorInterface
 {
+    /**
+     * @var bool
+     */
     private $inAModule = false;
+    /**
+     * @var bool
+     */
     private $hasMacroCalls = false;
 
+    /**
+     * @param Node $node
+     * @param Environment $env
+     * @return Node
+     */
     public function enterNode(Node $node, Environment $env): Node
     {
         if ($node instanceof ModuleNode) {
@@ -29,7 +40,11 @@ class MacroAutoImportNodeVisitor implements NodeVisitorInterface
         return $node;
     }
 
+
     /**
+     * @param Node $node
+     * @param Environment $env
+     * @return Node
      * @throws SyntaxError
      */
     public function leaveNode(Node $node, Environment $env): Node
@@ -65,6 +80,9 @@ class MacroAutoImportNodeVisitor implements NodeVisitorInterface
         return $node;
     }
 
+    /**
+     * @return int
+     */
     public function getPriority(): int
     {
         // we must run before auto-escaping
