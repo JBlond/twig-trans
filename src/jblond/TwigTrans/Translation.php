@@ -4,7 +4,6 @@ namespace jblond\TwigTrans;
 
 use Twig\Compiler;
 use Twig\Extension\ExtensionInterface;
-use Twig\NodeVisitor\MacroAutoImportNodeVisitor;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 use Twig\TwigTest;
