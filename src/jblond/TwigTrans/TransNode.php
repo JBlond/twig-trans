@@ -27,9 +27,9 @@ class TransNode extends Node
      */
     public function __construct(
         Node $body,
-        Node $plural = null,
-        AbstractExpression $count = null,
-        Node $notes = null,
+        ?Node $plural = null,
+        ?AbstractExpression $count = null,
+        ?Node $notes = null,
         int $lineNo = 0
     ) {
         $nodes = ['body' => $body];
