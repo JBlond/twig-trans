@@ -2,6 +2,7 @@
 
 namespace jblond\TwigTrans;
 
+use Twig\Attribute\YieldReady;
 use Twig\Compiler;
 use Twig\Node\Expression\AbstractExpression;
 use Twig\Node\Expression\ConstantExpression;
@@ -15,6 +16,7 @@ use Twig\Node\PrintNode;
  * Class TransNode
  * @package jblond\TwigTrans
  */
+#[YieldReady]
 class TransNode extends Node
 {
     /**
