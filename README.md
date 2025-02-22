@@ -83,7 +83,8 @@ echo $tpl->render(['key1' => 'value1', 'key2' => 'value2']);
 ## Requirements
 
 * PHP 7.2 or greater
-* PHP Multibyte String ' gettext'
+* PHP Multibyte String 
+* 'gettext'
 * Twig >= 3.0
 
 ### Optional Requirements
