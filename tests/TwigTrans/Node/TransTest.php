@@ -52,7 +52,7 @@ class TransTest extends NodeTestCase
 
         $body = new NameExpression('foo', 0);
         $node = new TransNode($body, null, null, null, 0);
-        $tests[] = [$node, sprintf('echo gettext(%s);', $this->getVariableGetter('foo'))];
+        $tests[] = [$node, sprintf('echo gettext(%s);', NodeTestCase::createVariableGetter('foo'))];
 
         $body = new ConstantExpression('Hello', 0);
         $node = new TransNode($body, null, null, null, 0);
@@ -74,7 +74,7 @@ class TransTest extends NodeTestCase
             $node,
             sprintf(
                 'echo strtr(gettext("J\'ai %%foo%% pommes"), array("%%foo%%" => %s, ));',
-                $this->getVariableGetter('foo')
+                NodeTestCase::createVariableGetter('foo')
             )
         ];
 
@@ -97,8 +97,8 @@ class TransTest extends NodeTestCase
             sprintf(
                 'echo strtr(ngettext("Hey %%name%%, I have one apple", "Hey %%name%%, I have %%count%% apples", ' .
                 'abs(12)), array("%%name%%" => %s, "%%name%%" => %s, "%%count%%" => abs(12), ));',
-                $this->getVariableGetter('name'),
-                $this->getVariableGetter('name')
+                NodeTestCase::createVariableGetter('name'),
+                NodeTestCase::createVariableGetter('name')
             )
         ];
 
@@ -122,7 +122,7 @@ class TransTest extends NodeTestCase
             $node,
             sprintf(
                 'echo strtr(gettext("J\'ai %%foo%% pommes"), array("%%foo%%" => %s, ));',
-                $this->getVariableGetter('foo')
+                NodeTestCase::createVariableGetter('foo')
             )
         ];
 
