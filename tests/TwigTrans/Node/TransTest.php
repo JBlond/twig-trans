@@ -52,17 +52,17 @@ class TransTest extends NodeTestCase
 
         $body = new NameExpression('foo', 0);
         $node = new TransNode($body, null, null, null, 0);
-        $tests[] = [$node, sprintf('echo gettext(%s);', NodeTestCase::createVariableGetter('foo'))];
+        $tests[] = [$node, sprintf('yield gettext(%s);', NodeTestCase::createVariableGetter('foo'))];
 
         $body = new ConstantExpression('Hello', 0);
         $node = new TransNode($body, null, null, null, 0);
-        $tests[] = [$node, 'echo gettext("Hello");'];
+        $tests[] = [$node, 'yield gettext("Hello");'];
 
         $body = new Node([
             new TextNode('Hello', 0),
         ], [], 0);
         $node = new TransNode($body, null, null, null, 0);
-        $tests[] = [$node, 'echo gettext("Hello");'];
+        $tests[] = [$node, 'yield gettext("Hello");'];
 
         $body = new Node([
             new TextNode('J\'ai ', 0),
@@ -73,7 +73,7 @@ class TransTest extends NodeTestCase
         $tests[] = [
             $node,
             sprintf(
-                'echo strtr(gettext("J\'ai %%foo%% pommes"), array("%%foo%%" => %s, ));',
+                'yield strtr(gettext("J\'ai %%foo%% pommes"), array("%%foo%%" => %s, ));',
                 NodeTestCase::createVariableGetter('foo')
             )
         ];
@@ -95,7 +95,7 @@ class TransTest extends NodeTestCase
         $tests[] = [
             $node,
             sprintf(
-                'echo strtr(ngettext("Hey %%name%%, I have one apple", "Hey %%name%%, I have %%count%% apples", ' .
+                'yield strtr(ngettext("Hey %%name%%, I have one apple", "Hey %%name%%, I have %%count%% apples", ' .
                 'abs(12)), array("%%name%%" => %s, "%%name%%" => %s, "%%count%%" => abs(12), ));',
                 NodeTestCase::createVariableGetter('name'),
                 NodeTestCase::createVariableGetter('name')
@@ -121,7 +121,7 @@ class TransTest extends NodeTestCase
         $tests[] = [
             $node,
             sprintf(
-                'echo strtr(gettext("J\'ai %%foo%% pommes"), array("%%foo%%" => %s, ));',
+                'yield strtr(gettext("J\'ai %%foo%% pommes"), array("%%foo%%" => %s, ));',
                 NodeTestCase::createVariableGetter('foo')
             )
         ];
@@ -130,12 +130,12 @@ class TransTest extends NodeTestCase
         $body = new ConstantExpression('Hello', 0);
         $notes = new TextNode('Notes for translators', 0);
         $node = new TransNode($body, null, null, $notes, 0);
-        $tests[] = [$node, "// notes: Notes for translators\necho gettext(\"Hello\");"];
+        $tests[] = [$node, "// notes: Notes for translators\nyield gettext(\"Hello\");"];
 
         $body = new ConstantExpression('Hello', 0);
         $notes = new TextNode("Notes for translators\nand line breaks", 0);
         $node = new TransNode($body, null, null, $notes, 0);
-        $tests[] = [$node, "// notes: Notes for translators and line breaks\necho gettext(\"Hello\");"];
+        $tests[] = [$node, "// notes: Notes for translators and line breaks\nyield gettext(\"Hello\");"];
 
         $count = new ConstantExpression(5, 0);
         $body = new TextNode('There is 1 pending task', 0);
@@ -149,7 +149,7 @@ class TransTest extends NodeTestCase
         $tests[] = [
             $node,
             "// notes: Notes for translators\n" .
-            'echo strtr(ngettext("There is 1 pending task", "There are %count% pending tasks", abs(5)),' .
+            'yield strtr(ngettext("There is 1 pending task", "There are %count% pending tasks", abs(5)),' .
             ' array("%count%" => abs(5), ));'
         ];
 
