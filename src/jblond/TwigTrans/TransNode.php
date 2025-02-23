@@ -21,14 +21,14 @@ class TransNode extends Nodes
     /**
      * TransNode constructor.
      * @param Nodes|\Twig\Node\TextNode|NameExpression $body
-     * @param Nodes|null $plural
+     * @param Nodes|Twig\Node\TextNode|null $plural
      * @param AbstractExpression|null $count
      * @param Nodes|\Twig\Node\TextNode|null $notes
      * @param int $lineNo
      */
     public function __construct(
         $body,
-        ?Nodes $plural = null,
+        $plural = null,
         ?AbstractExpression $count = null,
         $notes = null,
         int $lineNo = 0
