@@ -3,6 +3,7 @@
 namespace jblond\TwigTrans;
 
 use Twig\Environment;
+use Twig\Error\SyntaxError;
 use Twig\Node\Expression\AssignNameExpression;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\GetAttrExpression;
@@ -15,9 +16,20 @@ use Twig\NodeVisitor\NodeVisitorInterface;
 
 class MacroAutoImportNodeVisitor implements NodeVisitorInterface
 {
+    /**
+     * @var bool
+     */
     private $inAModule = false;
+    /**
+     * @var bool
+     */
     private $hasMacroCalls = false;
 
+    /**
+     * @param Node $node
+     * @param Environment $env
+     * @return Node
+     */
     public function enterNode(Node $node, Environment $env): Node
     {
         if ($node instanceof ModuleNode) {
@@ -28,6 +40,13 @@ class MacroAutoImportNodeVisitor implements NodeVisitorInterface
         return $node;
     }
 
+
+    /**
+     * @param Node $node
+     * @param Environment $env
+     * @return Node
+     * @throws SyntaxError
+     */
     public function leaveNode(Node $node, Environment $env): Node
     {
         if ($node instanceof ModuleNode) {
@@ -35,15 +54,15 @@ class MacroAutoImportNodeVisitor implements NodeVisitorInterface
             if ($this->hasMacroCalls) {
                 $node->getNode('constructor_end')->setNode(
                     '_auto_macro_import',
-                    new ImportNode(new NameExpression('_self', 0), new AssignNameExpression('_self', 0), 0, true)
+                    new ImportNode(new NameExpression('_self', 0), new AssignNameExpression('_self', 0), 0)
                 );
             }
         } elseif ($this->inAModule) {
             if (
                 $node instanceof GetAttrExpression
                 && $node->getNode('node') instanceof NameExpression
-                && '_self' === $node->getNode('node')->getAttribute('name')
                 && $node->getNode('attribute') instanceof ConstantExpression
+                && '_self' === $node->getNode('node')->getAttribute('name')
             ) {
                 $this->hasMacroCalls = true;
 
@@ -61,6 +80,9 @@ class MacroAutoImportNodeVisitor implements NodeVisitorInterface
         return $node;
     }
 
+    /**
+     * @return int
+     */
     public function getPriority(): int
     {
         // we must run before auto-escaping

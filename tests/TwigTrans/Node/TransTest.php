@@ -2,11 +2,11 @@
 
 namespace jblond\TwigTrans\Node;
 
+use jblond\TwigTrans\Nodes;
 use jblond\TwigTrans\TransNode;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\FilterExpression;
 use Twig\Node\Expression\NameExpression;
-use Twig\Node\Node;
 use Twig\Node\PrintNode;
 use Twig\Node\TextNode;
 use Twig\Test\NodeTestCase;
@@ -25,20 +25,24 @@ class TransTest extends NodeTestCase
     public function testConstructor(): void
     {
         $count = new ConstantExpression(12, 0);
-        $body = new Node([
+        $body = new Nodes([
             new TextNode('Hello', 0),
-        ], [], 0);
-        $plural = new Node([
+        ], 0);
+        $plural = new Nodes([
             new TextNode('Hey ', 0),
             new PrintNode(new NameExpression('name', 0), 0),
             new TextNode(', I have ', 0),
             new PrintNode(new NameExpression('count', 0), 0),
             new TextNode(' apples', 0),
-        ], [], 0);
+        ], 0);
         $node = new TransNode($body, $plural, $count, null, 0);
 
+        /** @var mixed $node */
+        /** @var mixed $body */
         $this->assertEquals($body, $node->getNode('body'));
+        /** @var mixed $count */
         $this->assertEquals($count, $node->getNode('count'));
+        /** @var mixed $plural */
         $this->assertEquals($plural, $node->getNode('plural'));
     }
 
@@ -52,77 +56,77 @@ class TransTest extends NodeTestCase
 
         $body = new NameExpression('foo', 0);
         $node = new TransNode($body, null, null, null, 0);
-        $tests[] = [$node, sprintf('echo gettext(%s);', $this->getVariableGetter('foo'))];
+        $tests[] = [$node, sprintf('yield gettext(%s);', NodeTestCase::createVariableGetter('foo'))];
 
         $body = new ConstantExpression('Hello', 0);
         $node = new TransNode($body, null, null, null, 0);
-        $tests[] = [$node, 'echo gettext("Hello");'];
+        $tests[] = [$node, 'yield gettext("Hello");'];
 
-        $body = new Node([
+        $body = new Nodes([
             new TextNode('Hello', 0),
-        ], [], 0);
+        ], 0);
         $node = new TransNode($body, null, null, null, 0);
-        $tests[] = [$node, 'echo gettext("Hello");'];
+        $tests[] = [$node, 'yield gettext("Hello");'];
 
-        $body = new Node([
+        $body = new Nodes([
             new TextNode('J\'ai ', 0),
             new PrintNode(new NameExpression('foo', 0), 0),
             new TextNode(' pommes', 0),
-        ], [], 0);
+        ], 0);
         $node = new TransNode($body, null, null, null, 0);
         $tests[] = [
             $node,
             sprintf(
-                'echo strtr(gettext("J\'ai %%foo%% pommes"), array("%%foo%%" => %s, ));',
-                $this->getVariableGetter('foo')
+                'yield strtr(gettext("J\'ai %%foo%% pommes"), array("%%foo%%" => %s, ));',
+                NodeTestCase::createVariableGetter('foo')
             )
         ];
 
         $count = new ConstantExpression(12, 0);
-        $body = new Node([
+        $body = new Nodes([
             new TextNode('Hey ', 0),
             new PrintNode(new NameExpression('name', 0), 0),
             new TextNode(', I have one apple', 0),
-        ], [], 0);
-        $plural = new Node([
+        ], 0);
+        $plural = new Nodes([
             new TextNode('Hey ', 0),
             new PrintNode(new NameExpression('name', 0), 0),
             new TextNode(', I have ', 0),
             new PrintNode(new NameExpression('count', 0), 0),
             new TextNode(' apples', 0),
-        ], [], 0);
+        ], 0);
         $node = new TransNode($body, $plural, $count, null, 0);
         $tests[] = [
             $node,
             sprintf(
-                'echo strtr(ngettext("Hey %%name%%, I have one apple", "Hey %%name%%, I have %%count%% apples", ' .
+                'yield strtr(ngettext("Hey %%name%%, I have one apple", "Hey %%name%%, I have %%count%% apples", ' .
                 'abs(12)), array("%%name%%" => %s, "%%name%%" => %s, "%%count%%" => abs(12), ));',
-                $this->getVariableGetter('name'),
-                $this->getVariableGetter('name')
+                NodeTestCase::createVariableGetter('name'),
+                NodeTestCase::createVariableGetter('name')
             )
         ];
 
         // with escaper extension set to on
-        $body = new Node([
+        $body = new Nodes([
             new TextNode('J\'ai ', 0),
             new PrintNode(
                 new FilterExpression(
                     new NameExpression('foo', 0),
                     new ConstantExpression('escape', 0),
-                    new Node(),
+                    new Nodes(),
                     0
                 ),
                 0
             ),
             new TextNode(' pommes', 0),
-        ], [], 0);
+        ], 0);
 
         $node = new TransNode($body, null, null, null, 0);
         $tests[] = [
             $node,
             sprintf(
-                'echo strtr(gettext("J\'ai %%foo%% pommes"), array("%%foo%%" => %s, ));',
-                $this->getVariableGetter('foo')
+                'yield strtr(gettext("J\'ai %%foo%% pommes"), array("%%foo%%" => %s, ));',
+                NodeTestCase::createVariableGetter('foo')
             )
         ];
 
@@ -130,26 +134,26 @@ class TransTest extends NodeTestCase
         $body = new ConstantExpression('Hello', 0);
         $notes = new TextNode('Notes for translators', 0);
         $node = new TransNode($body, null, null, $notes, 0);
-        $tests[] = [$node, "// notes: Notes for translators\necho gettext(\"Hello\");"];
+        $tests[] = [$node, "// notes: Notes for translators\nyield gettext(\"Hello\");"];
 
         $body = new ConstantExpression('Hello', 0);
         $notes = new TextNode("Notes for translators\nand line breaks", 0);
         $node = new TransNode($body, null, null, $notes, 0);
-        $tests[] = [$node, "// notes: Notes for translators and line breaks\necho gettext(\"Hello\");"];
+        $tests[] = [$node, "// notes: Notes for translators and line breaks\nyield gettext(\"Hello\");"];
 
         $count = new ConstantExpression(5, 0);
         $body = new TextNode('There is 1 pending task', 0);
-        $plural = new Node([
+        $plural = new Nodes([
             new TextNode('There are ', 0),
             new PrintNode(new NameExpression('count', 0), 0),
             new TextNode(' pending tasks', 0),
-        ], [], 0);
+        ], 0);
         $notes = new TextNode('Notes for translators', 0);
         $node = new TransNode($body, $plural, $count, $notes, 0);
         $tests[] = [
             $node,
             "// notes: Notes for translators\n" .
-            'echo strtr(ngettext("There is 1 pending task", "There are %count% pending tasks", abs(5)),' .
+            'yield strtr(ngettext("There is 1 pending task", "There are %count% pending tasks", abs(5)),' .
             ' array("%count%" => abs(5), ));'
         ];
 
