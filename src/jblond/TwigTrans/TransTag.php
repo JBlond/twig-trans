@@ -81,13 +81,13 @@ class TransTag extends AbstractTokenParser
     }
 
     /**
-     * @param Nodes|\Twig\Node\TextNode $body
+     * @param Nodes|TextNode $body
      * @param int $lineNo
      * @throws SyntaxError
      */
     protected function checkTransString($body, int $lineNo): void
     {
-        foreach ($body as $i => $node) {
+        foreach ($body as $_irrelevant => $node) {
             if (
                 $node instanceof TextNode ||
                 ($node instanceof PrintNode && $node->getNode('expr') instanceof NameExpression)
