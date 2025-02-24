@@ -39,7 +39,7 @@
         }
     },
     "config": {
-        "classmap-authoritative": true
+        "optimize-autoloader": true
     },
     "scripts": {
         "php_src": "phpcs --standard=phpcs.xml -s -p --colors ./src/",
