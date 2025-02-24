@@ -10,6 +10,7 @@ use Twig\Node\Expression\FilterExpression;
 use Twig\Node\Expression\NameExpression;
 use Twig\Node\Expression\TempNameExpression;
 use Twig\Node\PrintNode;
+use Twig\Node\TextNode;
 
 /**
  * Class TransNode
@@ -20,10 +21,10 @@ class TransNode extends Nodes
 {
     /**
      * TransNode constructor.
-     * @param Nodes|\Twig\Node\TextNode|NameExpression $body
-     * @param Nodes|Twig\Node\TextNode|null $plural
+     * @param Nodes|TextNode|NameExpression|ConstantExpression $body
+     * @param Nodes|TextNode|null $plural
      * @param AbstractExpression|null $count
-     * @param Nodes|\Twig\Node\TextNode|null $notes
+     * @param Nodes|TextNode|null $notes
      * @param int $lineNo
      */
     public function __construct(
@@ -131,7 +132,7 @@ class TransNode extends Nodes
     }
 
     /**
-     * @param Nodes|\Twig\Node\TextNode $body A Twig_Node instance
+     * @param Nodes|TextNode $body A Twig_Node instance
      *
      * @return array
      */
