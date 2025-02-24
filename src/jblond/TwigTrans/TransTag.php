@@ -53,7 +53,7 @@ class TransTag extends AbstractTokenParser
         $stream->expect(Token::BLOCK_END_TYPE);
         $this->checkTransString($body, $lineNo);
 
-        return new TransNode($body, $plural, $count, $notes, $lineNo, $this->getTag());
+        return new TransNode($body, $plural, $count, $notes, $lineNo);
     }
 
     /**
@@ -89,7 +89,7 @@ class TransTag extends AbstractTokenParser
      */
     protected function checkTransString($body, int $lineNo): void
     {
-        foreach ($body as $_irrelevant => $node) {
+        foreach ($body as $node) {
             if (
                 $node instanceof TextNode ||
                 ($node instanceof PrintNode && $node->getNode('expr') instanceof NameExpression)

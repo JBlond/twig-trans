@@ -43,7 +43,7 @@ class Translation implements ExtensionInterface
     private static function replaceContext(string $string, array $context): string
     {
         // Without the brackets there is no need to run the rest of this method.
-        if (mb_strpos($string, '{{') === false) {
+        if (!str_contains($string, '{{')) {
             return $string;
         }
         foreach ($context as $key => $value) {
@@ -59,7 +59,6 @@ class Translation implements ExtensionInterface
         return $string;
     }
 
-
     /**
      * @return TwigFilter[]
      */
@@ -69,7 +68,6 @@ class Translation implements ExtensionInterface
             new TwigFilter('Translation', [$this, 'transGetText']),
         ];
     }
-
 
     /**
      * @return TwigFunction[]
@@ -92,7 +90,6 @@ class Translation implements ExtensionInterface
         ];
     }
 
-
     /**
      * @return TransTag[]
      */
@@ -103,7 +100,6 @@ class Translation implements ExtensionInterface
         ];
     }
 
-
     /**
      * @return MacroAutoImportNodeVisitor[]
      */
@@ -111,7 +107,6 @@ class Translation implements ExtensionInterface
     {
         return [new MacroAutoImportNodeVisitor()];
     }
-
 
     /**
      * @return array[]
