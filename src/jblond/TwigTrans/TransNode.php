@@ -157,12 +157,12 @@ class TransNode extends Nodes
                 }
 
                 if ($node instanceof PrintNode) {
-                    $n = $node->getNode('expr');
-                    while ($n instanceof FilterExpression) {
-                        $n = $n->getNode('node');
+                    $currentNode = $node->getNode('expr');
+                    while ($currentNode instanceof FilterExpression) {
+                        $currentNode = $currentNode->getNode('node');
                     }
-                    $msg .= sprintf('%%%s%%', $n->getAttribute('name'));
-                    $vars[] = new NameExpression($n->getAttribute('name'), $n->getTemplateLine());
+                    $msg .= sprintf('%%%s%%', $currentNode->getAttribute('name'));
+                    $vars[] = new NameExpression($currentNode->getAttribute('name'), $currentNode->getTemplateLine());
                 } else {
                     $msg .= $node->getAttribute('data');
                 }
