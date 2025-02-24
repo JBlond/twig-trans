@@ -9,26 +9,27 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
 /**
- *
+ * Class Extract
+ * @package jblond\TwigTrans
  */
 class Extract
 {
     /**
      * @var Environment
      */
-    protected $environment;
+    protected Environment $environment;
 
     /**
      * Gettext parameters.
      *
      * @var string[]
      */
-    protected $parameters;
+    protected array $parameters;
 
     /**
-     * @var
+     * @var string
      */
-    private $executable;
+    private string $executable = '';
 
     /**
      * @param Environment $environment
@@ -40,10 +41,10 @@ class Extract
     }
 
     /**
-     * @param mixed $executable
+     * @param string $executable
      * @return void
      */
-    public function setExecutable($executable): void
+    public function setExecutable(string $executable): void
     {
         $this->executable = $executable;
     }

@@ -16,7 +16,9 @@ use Twig\TokenParser\AbstractTokenParser;
 class TransTag extends AbstractTokenParser
 {
     /**
-     * {@inheritdoc}
+     * @param Token $token
+     * @return Nodes
+     * @throws SyntaxError
      */
     public function parse(Token $token): Nodes
     {
@@ -73,7 +75,7 @@ class TransTag extends AbstractTokenParser
     }
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public function getTag(): string
     {

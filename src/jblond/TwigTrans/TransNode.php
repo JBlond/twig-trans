@@ -48,8 +48,10 @@ class TransNode extends Nodes
         parent::__construct($nodes, $lineNo);
     }
 
+
     /**
-     * {@inheritdoc}
+     * @param Compiler $compiler
+     * @return void
      */
     public function compile(Compiler $compiler): void
     {

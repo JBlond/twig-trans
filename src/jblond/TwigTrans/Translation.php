@@ -59,8 +59,9 @@ class Translation implements ExtensionInterface
         return $string;
     }
 
+
     /**
-     * @inheritDoc
+     * @return TwigFilter[]
      */
     public function getFilters(): array
     {
@@ -69,8 +70,9 @@ class Translation implements ExtensionInterface
         ];
     }
 
+
     /**
-     * @inheritDoc
+     * @return TwigFunction[]
      */
     public function getFunctions(): array
     {
@@ -79,8 +81,9 @@ class Translation implements ExtensionInterface
         ];
     }
 
+
     /**
-     * @inheritDoc
+     * @return TwigTest[]
      */
     public function getTests(): array
     {
@@ -89,8 +92,9 @@ class Translation implements ExtensionInterface
         ];
     }
 
+
     /**
-     * @inheritDoc
+     * @return TransTag[]
      */
     public function getTokenParsers(): array
     {
@@ -99,16 +103,18 @@ class Translation implements ExtensionInterface
         ];
     }
 
+
     /**
-     * @inheritDoc
+     * @return MacroAutoImportNodeVisitor[]
      */
     public function getNodeVisitors(): array
     {
         return [new MacroAutoImportNodeVisitor()];
     }
 
+
     /**
-     * @inheritDoc
+     * @return array[]
      */
     public function getOperators(): array
     {
