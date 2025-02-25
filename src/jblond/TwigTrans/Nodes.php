@@ -6,6 +6,8 @@ use Twig\Attribute\YieldReady;
 use Twig\Node\Node;
 
 /**
+ * Represents a list of nodes.
+ *
  * Class Nodes
  * @package jblond\TwigTrans
  */
