@@ -12,7 +12,7 @@ use Twig\TwigTest;
  * Class Translation
  * @package jblond\TwigTrans
  */
-class Translation implements ExtensionInterface
+final class Translation implements ExtensionInterface
 {
     /**
      * local version of ExpressionParser::OPERATOR_LEFT

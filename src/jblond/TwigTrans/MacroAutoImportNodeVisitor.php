@@ -18,7 +18,7 @@ use Twig\NodeVisitor\NodeVisitorInterface;
  * Class MacroAutoImportNodeVisitor
  * @package jblond\TwigTrans
  */
-class MacroAutoImportNodeVisitor implements NodeVisitorInterface
+final class MacroAutoImportNodeVisitor implements NodeVisitorInterface
 {
     /**
      * @var bool

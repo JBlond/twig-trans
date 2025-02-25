@@ -16,6 +16,7 @@ use function sprintf;
 /**
  * Class TransTest
  * @package jblond\tests\TwigTrans\Node
+ * @psalm-suppress UnusedClass
  */
 class TransTest extends NodeTestCase
 {

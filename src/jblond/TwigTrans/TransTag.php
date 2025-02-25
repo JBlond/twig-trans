@@ -13,7 +13,7 @@ use Twig\TokenParser\AbstractTokenParser;
  * Class TransTag
  * @package jblond\TwigTrans
  */
-class TransTag extends AbstractTokenParser
+final class TransTag extends AbstractTokenParser
 {
     /**
      * @param Token $token
@@ -59,6 +59,7 @@ class TransTag extends AbstractTokenParser
     /**
      * @param Token $token
      * @return bool
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public function decideForFork(Token $token): bool
     {
@@ -68,6 +69,7 @@ class TransTag extends AbstractTokenParser
     /**
      * @param Token $token
      * @return bool
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public function decideForEnd(Token $token): bool
     {

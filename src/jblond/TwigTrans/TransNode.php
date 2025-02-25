@@ -17,7 +17,7 @@ use Twig\Node\TextNode;
  * @package jblond\TwigTrans
  */
 #[YieldReady]
-class TransNode extends Nodes
+final class TransNode extends Nodes
 {
     /**
      * TransNode constructor.
@@ -135,7 +135,6 @@ class TransNode extends Nodes
 
     /**
      * @param Nodes|TextNode $body A Twig_Node instance
-     *
      * @return array
      */
     protected function compileString($body): array

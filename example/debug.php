@@ -17,10 +17,16 @@ if (setlocale(LC_ALL, "$langCode.UTF-8") === false) {
     echo sprintf('Language Code %s not found', $langCode);
 }
 
-// set the path to the translation
+/**
+ * set the path to the translation
+ * @psalm-suppress UnusedFunctionCall
+ */
 bindtextdomain("Web_Content", "./locale");
 
-// choose Domain
+/**
+ * choose Domain
+ * @psalm-suppress UnusedFunctionCall
+ */
 textdomain("Web_Content");
 
 $twigConfig = [

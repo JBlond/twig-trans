@@ -12,7 +12,7 @@ use Twig\Error\SyntaxError;
  * Class Extract
  * @package jblond\TwigTrans
  */
-class Extract
+final class Extract
 {
     /**
      * @var Environment
@@ -43,6 +43,7 @@ class Extract
     /**
      * @param string $executable
      * @return void
+     * @psalm-suppress UnusedMethod
      */
     public function setExecutable(string $executable): void
     {
@@ -67,24 +68,6 @@ class Extract
     public function addTemplate(string $path): void
     {
         $this->environment->load($path);
-    }
-
-    /**
-     * @param $parameter
-     * @return void
-     */
-    public function addGettextParameter($parameter): void
-    {
-        $this->parameters[] = $parameter;
-    }
-
-    /**
-     * @param array $parameters
-     * @return void
-     */
-    public function setGettextParameters(array $parameters): void
-    {
-        $this->parameters = $parameters;
     }
 
 
