@@ -9,6 +9,7 @@ use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\FilterExpression;
 use Twig\Node\Expression\NameExpression;
 use Twig\Node\Expression\TempNameExpression;
+use Twig\Node\Node;
 use Twig\Node\PrintNode;
 use Twig\Node\TextNode;
 
@@ -134,7 +135,7 @@ final class TransNode extends Nodes
     }
 
     /**
-     * @param Nodes|TextNode $body A Twig_Node instance
+     * @param Nodes|TextNode|Node $body A Twig_Node instance
      * @return array
      */
     protected function compileString($body): array
