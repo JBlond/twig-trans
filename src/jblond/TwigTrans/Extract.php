@@ -51,27 +51,8 @@ final class Extract
     }
 
     /**
-     * @param $parameter
      * @return void
      * @psalm-suppress UnusedMethod
-     */
-    public function addGettextParameter($parameter): void
-    {
-        $this->parameters[] = $parameter;
-    }
-
-    /**
-     * @param array $parameters
-     * @return void
-     * @psalm-suppress UnusedMethod
-     */
-    public function setGettextParameters(array $parameters): void
-    {
-        $this->parameters = $parameters;
-    }
-
-    /**
-     * @return void
      */
     protected function reset(): void
     {
@@ -90,6 +71,25 @@ final class Extract
         $this->environment->load($path);
     }
 
+    /**
+     * @param $parameter
+     * @return void
+     * @psalm-suppress UnusedMethod
+     */
+    public function addGettextParameter($parameter): void
+    {
+        $this->parameters[] = $parameter;
+    }
+
+    /**
+     * @param array $parameters
+     * @return void
+     * @psalm-suppress UnusedMethod
+     */
+    public function setGettextParameters(array $parameters): void
+    {
+        $this->parameters = $parameters;
+    }
 
     /**
      * @return void
