@@ -15,3 +15,9 @@ msgstr "my string"
 
 msgid "Hello %name%"
 msgstr "Hello %name%"
+
+msgid "new text by tag"
+msgstr "my string 2"
+
+msgid "another text by filter"
+msgstr "my string 3"

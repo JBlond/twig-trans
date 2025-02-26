@@ -12,7 +12,7 @@ use Twig\TwigTest;
  * Class Translation
  * @package jblond\TwigTrans
  */
-class Translation implements ExtensionInterface
+final class Translation implements ExtensionInterface
 {
     /**
      * local version of ExpressionParser::OPERATOR_LEFT
@@ -43,7 +43,7 @@ class Translation implements ExtensionInterface
     private static function replaceContext(string $string, array $context): string
     {
         // Without the brackets there is no need to run the rest of this method.
-        if (mb_strpos($string, '{{') === false) {
+        if (!str_contains($string, '{{')) {
             return $string;
         }
         foreach ($context as $key => $value) {
@@ -60,7 +60,7 @@ class Translation implements ExtensionInterface
     }
 
     /**
-     * @inheritDoc
+     * @return TwigFilter[]
      */
     public function getFilters(): array
     {
@@ -70,7 +70,7 @@ class Translation implements ExtensionInterface
     }
 
     /**
-     * @inheritDoc
+     * @return TwigFunction[]
      */
     public function getFunctions(): array
     {
@@ -79,8 +79,9 @@ class Translation implements ExtensionInterface
         ];
     }
 
+
     /**
-     * @inheritDoc
+     * @return TwigTest[]
      */
     public function getTests(): array
     {
@@ -90,7 +91,7 @@ class Translation implements ExtensionInterface
     }
 
     /**
-     * @inheritDoc
+     * @return TransTag[]
      */
     public function getTokenParsers(): array
     {
@@ -100,7 +101,7 @@ class Translation implements ExtensionInterface
     }
 
     /**
-     * @inheritDoc
+     * @return MacroAutoImportNodeVisitor[]
      */
     public function getNodeVisitors(): array
     {
@@ -108,7 +109,7 @@ class Translation implements ExtensionInterface
     }
 
     /**
-     * @inheritDoc
+     * @return array[]
      */
     public function getOperators(): array
     {

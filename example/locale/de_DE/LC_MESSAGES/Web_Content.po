@@ -15,3 +15,9 @@ msgstr "Meine Zeichenkette"
 
 msgid "Hello %name%"
 msgstr "Hallo %name%"
+
+msgid "new text by tag"
+msgstr "Meine Zeichenkette 2"
+
+msgid "another text by filter"
+msgstr "Meine Zeichenkette 3"
