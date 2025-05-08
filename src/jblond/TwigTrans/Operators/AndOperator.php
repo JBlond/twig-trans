@@ -10,5 +10,4 @@ class AndOperator
     {
         return $compiler->raw('&&');
     }
-
 }

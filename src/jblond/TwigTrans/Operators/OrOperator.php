@@ -10,5 +10,4 @@ class OrOperator
     {
         return $compiler->raw('||');
     }
-
 }

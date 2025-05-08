@@ -10,5 +10,4 @@ class NotOperator
     {
         return $compiler->raw('!');
     }
-
 }
