@@ -1,8 +1,8 @@
 <?php
 
-use jblond\TwigTrans\Extract;
 use jblond\TwigTrans\Translation;
 use Twig\Environment;
+use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
 use Twig\TwigFilter;
 
@@ -51,7 +51,13 @@ $twig->addFilter($filter);
 // load the i18n extension for using the translation tag for twig
 // {% trans %}my string{% endtrans %}
 $twig->addExtension(new Translation());
+$twig->addExtension(new DebugExtension());
 
-$extract = new Extract($twig);
-$extract->addTemplate('default.twig');
-$extract->extract();
+try {
+    $tpl = $twig->load('debug.twig');
+} catch (Exception $exception) {
+    echo $exception->getMessage();
+    die();
+}
+
+echo $tpl->render(['name' => 'James']);

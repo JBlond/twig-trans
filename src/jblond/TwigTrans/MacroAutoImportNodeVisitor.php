@@ -14,16 +14,20 @@ use Twig\Node\ModuleNode;
 use Twig\Node\Node;
 use Twig\NodeVisitor\NodeVisitorInterface;
 
-class MacroAutoImportNodeVisitor implements NodeVisitorInterface
+/**
+ * Class MacroAutoImportNodeVisitor
+ * @package jblond\TwigTrans
+ */
+final class MacroAutoImportNodeVisitor implements NodeVisitorInterface
 {
     /**
      * @var bool
      */
-    private $inAModule = false;
+    private bool $inAModule = false;
     /**
      * @var bool
      */
-    private $hasMacroCalls = false;
+    private bool $hasMacroCalls = false;
 
     /**
      * @param Node $node

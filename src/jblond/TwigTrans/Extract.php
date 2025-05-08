@@ -9,26 +9,27 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
 /**
- *
+ * Class Extract
+ * @package jblond\TwigTrans
  */
-class Extract
+final class Extract
 {
     /**
      * @var Environment
      */
-    protected $environment;
+    protected Environment $environment;
 
     /**
      * Gettext parameters.
      *
      * @var string[]
      */
-    protected $parameters;
+    protected array $parameters;
 
     /**
-     * @var
+     * @var string
      */
-    private $executable;
+    private string $executable = '';
 
     /**
      * @param Environment $environment
@@ -40,16 +41,18 @@ class Extract
     }
 
     /**
-     * @param mixed $executable
+     * @param string $executable
      * @return void
+     * @psalm-suppress UnusedMethod
      */
-    public function setExecutable($executable): void
+    public function setExecutable(string $executable): void
     {
         $this->executable = $executable;
     }
 
     /**
      * @return void
+     * @psalm-suppress UnusedMethod
      */
     protected function reset(): void
     {
@@ -71,6 +74,7 @@ class Extract
     /**
      * @param $parameter
      * @return void
+     * @psalm-suppress UnusedMethod
      */
     public function addGettextParameter($parameter): void
     {
@@ -80,12 +84,12 @@ class Extract
     /**
      * @param array $parameters
      * @return void
+     * @psalm-suppress UnusedMethod
      */
     public function setGettextParameters(array $parameters): void
     {
         $this->parameters = $parameters;
     }
-
 
     /**
      * @return void

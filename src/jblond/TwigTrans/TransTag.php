@@ -13,10 +13,12 @@ use Twig\TokenParser\AbstractTokenParser;
  * Class TransTag
  * @package jblond\TwigTrans
  */
-class TransTag extends AbstractTokenParser
+final class TransTag extends AbstractTokenParser
 {
     /**
-     * {@inheritdoc}
+     * @param Token $token
+     * @return Nodes
+     * @throws SyntaxError
      */
     public function parse(Token $token): Nodes
     {
@@ -51,12 +53,13 @@ class TransTag extends AbstractTokenParser
         $stream->expect(Token::BLOCK_END_TYPE);
         $this->checkTransString($body, $lineNo);
 
-        return new TransNode($body, $plural, $count, $notes, $lineNo, $this->getTag());
+        return new TransNode($body, $plural, $count, $notes, $lineNo);
     }
 
     /**
      * @param Token $token
      * @return bool
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public function decideForFork(Token $token): bool
     {
@@ -66,6 +69,7 @@ class TransTag extends AbstractTokenParser
     /**
      * @param Token $token
      * @return bool
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public function decideForEnd(Token $token): bool
     {
@@ -73,7 +77,7 @@ class TransTag extends AbstractTokenParser
     }
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public function getTag(): string
     {
@@ -81,13 +85,13 @@ class TransTag extends AbstractTokenParser
     }
 
     /**
-     * @param Nodes|\Twig\Node\TextNode $body
+     * @param Nodes|TextNode $body
      * @param int $lineNo
      * @throws SyntaxError
      */
     protected function checkTransString($body, int $lineNo): void
     {
-        foreach ($body as $i => $node) {
+        foreach ($body as $node) {
             if (
                 $node instanceof TextNode ||
                 ($node instanceof PrintNode && $node->getNode('expr') instanceof NameExpression)
