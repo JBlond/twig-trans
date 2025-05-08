@@ -27,14 +27,14 @@ class TransTag extends AbstractTokenParser
         $notes = null;
 
         if (!$stream->test(Token::BLOCK_END_TYPE)) {
-            $body = $this->parser->getExpressionParser()->parseExpression();
+            $body = $this->parser->parseExpression();
         } else {
             $stream->expect(Token::BLOCK_END_TYPE);
             $body = $this->parser->subparse([$this, 'decideForFork']);
             $next = $stream->next()->getValue();
 
             if ('plural' === $next) {
-                $count = $this->parser->getExpressionParser()->parseExpression();
+                $count = $this->parser->parseExpression();
                 $stream->expect(Token::BLOCK_END_TYPE);
                 $plural = $this->parser->subparse([$this, 'decideForFork']);
 
