@@ -111,6 +111,10 @@ final class Translation implements ExtensionInterface
     }
 
     /**
+     * @uses AndOperator
+     * @uses NotOperator
+     * @uses OrOperator
+     *
      * @return array[]
      */
     public function getOperators(): array
