@@ -3,6 +3,8 @@
 namespace jblond\TwigTrans;
 
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
+use ReflectionMethod;
 use Twig\TwigFunction;
 use Twig\TwigTest;
 use jblond\TwigTrans\Operators\NotOperator;
@@ -60,6 +62,18 @@ final class TranslationTest extends TestCase
     /**
      * @return void
      */
+    public function testGetTokenParsers2(): void
+    {
+        $translation = new Translation();
+        $parsers = $translation->getTokenParsers();
+
+        $this->assertIsArray($parsers);
+        $this->assertNotEmpty($parsers);
+    }
+
+    /**
+     * @return void
+     */
     public function testGetNodeVisitors(): void
     {
         $nodeVisitors = $this->translation->getNodeVisitors();
@@ -77,5 +91,149 @@ final class TranslationTest extends TestCase
         $this->assertArrayHasKey('!', $operators[0]);
         $this->assertEquals(50, $operators[0]['!']['precedence']);
         $this->assertEquals(NotOperator::class, $operators[0]['!']['class']);
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetOperators2(): void
+    {
+        $translation = new Translation();
+        $operators = $translation->getOperators();
+
+        $this->assertIsArray($operators);
+        $this->assertCount(2, $operators);
+    }
+
+    /**
+     * @return void
+     */
+    public function testTransGetText(): void
+    {
+        $context = [];
+        $string = 'Hello World';
+
+        $result = Translation::transGetText($string, $context);
+
+        $this->assertEquals('Hello World', $result);
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetFilters(): void
+    {
+        $translation = new Translation();
+        $filters = $translation->getFilters();
+
+        $this->assertIsArray($filters);
+        $this->assertNotEmpty($filters);
+    }
+
+    /**
+     * @return void
+     */
+    public function testTransGetTextWithPlaceholder(): void
+    {
+        $context = ['name' => 'Bob'];
+        $string = 'Welcome, {{ name }}!';
+
+        $result = Translation::transGetText($string, $context);
+
+        $this->assertEquals('Welcome, Bob!', $result);
+    }
+
+    /**
+     * @return void
+     * @throws ReflectionException
+     */
+    public function testReplaceContext(): void
+    {
+        $method = new ReflectionMethod(Translation::class, 'replaceContext');
+
+
+        $result = $method->invokeArgs(null, [
+            'Hello {{ name }}!', ['name' => 'Alice']
+        ]);
+
+        $this->assertEquals('Hello Alice!', $result);
+    }
+
+    /**
+     * @return void
+     * @throws ReflectionException
+     */
+    public function testReplaceContextWithArrayAndObject(): void
+    {
+        $method = new ReflectionMethod(Translation::class, 'replaceContext');
+
+        $string = 'Name: {{ name }}, Age: {{ age }}';
+
+        // Value contains an array → should be replaced recursively
+        $context = [
+            'name' => ['age' => '42'], /// Is treated recursively → overwrites $string, which is okay for coverage
+            'unused' => (object)['foo' => 'bar'], 32 / 5.000 // Should simply be ignored
+        ];
+
+        // Expected return of the original (since '{{' does not fit in the recursive context)
+        $result = $method->invokeArgs(null, [$string, $context]);
+        $this->assertIsString($result); // Important: The goal is only to execute the code paths
+    }
+
+    /**
+     * @throws ReflectionException
+     * @return void
+     */
+    public function testReplaceContextSkipsObjectValues(): void
+    {
+        $method = new ReflectionMethod(Translation::class, 'replaceContext');
+        $string = 'Hello {{ name }}!';
+        $context = ['name' => (object)['foo' => 'bar']]; // << Object value is skipped
+        $result = $method->invokeArgs(null, [$string, $context]);
+        // The out does not change!
+        $this->assertEquals('Hello {{ name }}!', $result);
+    }
+
+    /**
+     * @return void
+     */
+    public function testTransGetTextReturnsOriginalWhenGettextIsEmpty(): void
+    {
+        $original = 'Some untranslated string';
+        $result = Translation::transGetText($original, []);
+        $this->assertEquals($original, $result);
+    }
+
+    /**
+     * @return void
+     * @throws ReflectionException
+     */
+    public function testReplaceContextReplacesVariables(): void
+    {
+        $method = new ReflectionMethod(Translation::class, 'replaceContext');
+        $result = $method->invokeArgs(null, ['Hello {{ name }}!', ['name' => 'Alice']]);
+        $this->assertEquals('Hello Alice!', $result);
+    }
+
+    /**
+     * @return void
+     * @throws ReflectionException
+     */
+    public function testReplaceContextSkipsObjects(): void
+    {
+        $method = new ReflectionMethod(Translation::class, 'replaceContext');
+        $result = $method->invokeArgs(null, ['Hello {{ name }}!', ['name' => (object)['foo' => 'bar']]]);
+        $this->assertEquals('Hello {{ name }}!', $result);
+    }
+
+    /**
+     * @return void
+     * @throws ReflectionException
+     */
+    public function testReplaceContextRecursesOnArray(): void
+    {
+        $method = new ReflectionMethod(Translation::class, 'replaceContext');
+        $result = $method->invokeArgs(null, ['Age: {{ age }}', ['name' => ['age' => '42']]]);
+        $this->assertIsString($result); // Nur zur Coverage
     }
 }

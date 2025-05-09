@@ -46,12 +46,13 @@
         "php_src": "phpcs --standard=phpcs.xml -s -p --colors ./src/",
         "php_test": "phpcs --standard=phpcs.xml -s -p --colors ./tests/",
         "phpunit": "phpunit ./tests/",
+        "coverage": "phpunit --colors=always --coverage-html codeCoverage",
         "psalm": "psalm",
         "tests": [
             "@php_src",
             "@php_test",
-            "@phpunit"
-        ],
-        "coverage": "phpunit --colors=always --coverage-html codeCoverage"
+            "@phpunit",
+            "@coverage"
+        ]
     }
 }
