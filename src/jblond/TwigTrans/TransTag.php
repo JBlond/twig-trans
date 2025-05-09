@@ -3,7 +3,9 @@
 namespace jblond\TwigTrans;
 
 use Twig\Error\SyntaxError;
+use Twig\Node\Expression\AbstractExpression;
 use Twig\Node\Expression\NameExpression;
+use Twig\Node\Node;
 use Twig\Node\PrintNode;
 use Twig\Node\TextNode;
 use Twig\Token;
@@ -85,11 +87,11 @@ final class TransTag extends AbstractTokenParser
     }
 
     /**
-     * @param Nodes|TextNode $body
+     * @param AbstractExpression|Node|Nodes|TextNode $body
      * @param int $lineNo
      * @throws SyntaxError
      */
-    protected function checkTransString($body, int $lineNo): void
+    protected function checkTransString(AbstractExpression|Node|Nodes|TextNode $body, int $lineNo): void
     {
         foreach ($body as $node) {
             if (

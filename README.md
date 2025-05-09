@@ -12,9 +12,9 @@ I didn't want to install Symfony, but Twig only. Symfony seemed to be too much o
 
 This extension enables Twig templates to use `|trans` and `{% trans %}` + `{% endtrans %}` again
 
-## Changes in 1.2
+## Changes in 1.2.1
 
-Now at least PHP 8 is required.
+Now at least PHP 8.1 is required like Twig itself.
 
 ## Install
 

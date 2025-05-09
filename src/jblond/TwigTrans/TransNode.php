@@ -22,7 +22,7 @@ final class TransNode extends Nodes
 {
     /**
      * TransNode constructor.
-     * @param Nodes|TextNode|NameExpression|ConstantExpression $body
+     * @param AbstractExpression|Node|Nodes|TextNode|NameExpression|ConstantExpression $body
      * @param Nodes|TextNode|null $plural
      * @param AbstractExpression|null $count
      * @param Nodes|TextNode|null $notes
@@ -32,7 +32,7 @@ final class TransNode extends Nodes
         $body,
         $plural = null,
         ?AbstractExpression $count = null,
-        $notes = null,
+        Nodes|TextNode $notes = null,
         int $lineNo = 0
     ) {
         $nodes = ['body' => $body];
@@ -135,10 +135,10 @@ final class TransNode extends Nodes
     }
 
     /**
-     * @param Nodes|TextNode|Node $body A Twig_Node instance
+     * @param Node|Nodes|TextNode $body A Twig_Node instance
      * @return array
      */
-    protected function compileString($body): array
+    protected function compileString(Node|Nodes|TextNode $body): array
     {
         if (
             $body instanceof NameExpression ||
@@ -177,7 +177,7 @@ final class TransNode extends Nodes
     }
 
     /**
-     * @param bool $plural Return plural or singular function to use
+     * @param bool $plural Return a plural or singular function to use
      *
      * @return string
      */
