@@ -51,6 +51,7 @@
             "@php_src",
             "@php_test",
             "@phpunit"
-        ]
+        ],
+        "coverage": "phpunit --colors=always --coverage-html codeCoverage"
     }
 }
