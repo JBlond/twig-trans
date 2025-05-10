@@ -28,6 +28,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
+     * @covers Translation::getFunctions
      * @return void
      */
     public function testGetFunctions(): void
@@ -39,6 +40,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
+     * @covers Translation::getTests
      * @return void
      */
     public function testGetTests(): void
@@ -50,6 +52,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
+     * @covers Translation::getTokenParsers
      * @return void
      */
     public function testGetTokenParsers(): void
@@ -60,6 +63,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
+     * @covers Translation::getTokenParsers
      * @return void
      */
     public function testGetTokenParsers2(): void
@@ -72,6 +76,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
+     * @covers Translation::getNodeVisitors
      * @return void
      */
     public function testGetNodeVisitors(): void
@@ -82,6 +87,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
+     * @covers Translation::getOperators
      * @return void
      */
     public function testGetOperators(): void
@@ -94,6 +100,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
+     * @covers Translation::getOperators
      * @return void
      */
     public function testGetOperators2(): void
@@ -106,6 +113,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
+     * @covers Translation::transGetText
      * @return void
      */
     public function testTransGetText(): void
@@ -119,9 +127,10 @@ final class TranslationTest extends TestCase
     }
 
     /**
+     * @covers Translation::transGetText
      * @return void
      */
-    public function testGetFilters(): void
+    public function getFilters(): void
     {
         $translation = new Translation();
         $filters = $translation->getFilters();
@@ -131,6 +140,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
+     * @covers Translation::transGetText
      * @return void
      */
     public function testTransGetTextWithPlaceholder(): void
@@ -144,6 +154,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
+     * @covers Translation::replaceContext
      * @return void
      * @throws ReflectionException
      */
@@ -160,6 +171,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
+     * @covers Translation::replaceContext
      * @return void
      * @throws ReflectionException
      */
@@ -181,8 +193,9 @@ final class TranslationTest extends TestCase
     }
 
     /**
-     * @throws ReflectionException
+     * @covers Translation::replaceContext
      * @return void
+     *@throws ReflectionException
      */
     public function testReplaceContextSkipsObjectValues(): void
     {
@@ -195,6 +208,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
+     * @covers Translation::transGetText
      * @return void
      */
     public function testTransGetTextReturnsOriginalWhenGettextIsEmpty(): void
@@ -205,6 +219,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
+     * @covers Translation::replaceContext
      * @return void
      * @throws ReflectionException
      */
@@ -216,6 +231,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
+     * @covers Translation::replaceContext
      * @return void
      * @throws ReflectionException
      */
@@ -227,6 +243,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
+     * @covers Translation::replaceContext
      * @return void
      * @throws ReflectionException
      */
