@@ -4,6 +4,7 @@ namespace jblond\TwigTrans\Node;
 
 use jblond\TwigTrans\Nodes;
 use jblond\TwigTrans\TransNode;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\FilterExpression;
 use Twig\Node\Expression\NameExpression;
@@ -18,10 +19,11 @@ use function sprintf;
  * @package jblond\tests\TwigTrans\Node
  * @psalm-suppress UnusedClass
  */
+#[CoversClass(TransNode::class)]
 final class TransTest extends NodeTestCase
 {
     /**
-     * @covers \jblond\TwigTrans\TransNode::__construct
+     * @covers TransNode::__construct
      */
     public function testConstructor(): void
     {
