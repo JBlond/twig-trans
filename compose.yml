@@ -1,0 +1,35 @@
+networks:
+  twig:
+    name: twig
+    driver: bridge
+
+services:
+  twig-php:
+    image: bitnami/php-fpm:8.2
+    container_name: twig-php
+    restart: unless-stopped
+    volumes:
+      - ./example:/app:rw
+      - ./conf/php-fpm.conf:/opt/bitnami/php/etc/php-fpm.conf
+      - ./conf/www.conf:/opt/bitnami/php/etc/php-fpm.d/www.conf
+    environment:
+      TZ: "Europe/Berlin"
+    networks:
+      - twig
+  twig-web:
+    container_name: twig-web
+    image: openresty/openresty:alpine-apk
+    restart: unless-stopped
+    ports:
+      - "8088:80"
+    networks:
+      - twig
+    volumes:
+      - ./conf/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf:ro
+      - ./conf/default.conf:/etc/nginx/conf.d/default.conf
+      - ./conf/error_pages:/etc/nginx/error_pages
+      - ./logs/nginx:/var/log/nginx:rw
+      - ./example:/app:rw"
+    environment:
+      TZ: "Europe/Berlin"
+
