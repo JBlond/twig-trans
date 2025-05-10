@@ -9,7 +9,7 @@ services:
     container_name: twig-php
     restart: unless-stopped
     volumes:
-      - ./:/app:rw
+      - ./example:/app:rw"
       - ./conf/php-fpm.conf:/opt/bitnami/php/etc/php-fpm.conf
       - ./conf/www.conf:/opt/bitnami/php/etc/php-fpm.d/www.conf
     environment:
