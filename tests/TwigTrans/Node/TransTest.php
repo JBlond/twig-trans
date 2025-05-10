@@ -49,6 +49,7 @@ final class TransTest extends NodeTestCase
 
 
     /**
+     * @covers Modes
      * @return array
      */
     public function getTests(): array
