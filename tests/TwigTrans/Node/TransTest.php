@@ -49,7 +49,7 @@ final class TransTest extends NodeTestCase
 
 
     /**
-     * @covers Modes
+     * @covers \jblond\TwigTrans\Nodes
      * @return array
      */
     public function getTests(): array

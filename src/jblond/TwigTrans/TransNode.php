@@ -32,7 +32,7 @@ final class TransNode extends Nodes
         $body,
         $plural = null,
         ?AbstractExpression $count = null,
-        Nodes|TextNode $notes = null,
+        Nodes|TextNode|null $notes = null,
         int $lineNo = 0
     ) {
         $nodes = ['body' => $body];
