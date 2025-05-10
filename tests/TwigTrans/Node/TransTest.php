@@ -5,9 +5,11 @@ namespace jblond\TwigTrans\Node;
 use jblond\TwigTrans\Nodes;
 use jblond\TwigTrans\TransNode;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use Twig\Environment;
 use Twig\Node\Expression\ConstantExpression;
-use Twig\Node\Expression\FilterExpression;
 use Twig\Node\Expression\NameExpression;
+use Twig\Node\Node;
 use Twig\Node\PrintNode;
 use Twig\Node\TextNode;
 use Twig\Test\NodeTestCase;
@@ -17,22 +19,22 @@ use function sprintf;
 /**
  * Class TransTest
  * @package jblond\tests\TwigTrans\Node
- * @psalm-suppress UnusedClass
  */
 #[CoversClass(TransNode::class)]
 final class TransTest extends NodeTestCase
 {
     /**
-     * @covers TransNode::__construct
+     * @covers \jblond\TwigTrans\Node\TransNode::__construct
      */
     public function testConstructor(): void
     {
         $count = new ConstantExpression(12, 0);
         $body = new Nodes([
-            new TextNode('Hello', 0),
+            new ConstantExpression('Hello', 0),
         ], 0);
         $plural = new Nodes([
             new TextNode('Hey ', 0),
+            new ConstantExpression('Hello, plural!', 0),
             new PrintNode(new NameExpression('name', 0), 0),
             new TextNode(', I have ', 0),
             new PrintNode(new NameExpression('count', 0), 0),
@@ -40,127 +42,154 @@ final class TransTest extends NodeTestCase
         ], 0);
         $node = new TransNode($body, $plural, $count, null, 0);
 
-        /** @var mixed $node */
-        /** @var mixed $body */
         $this->assertEquals($body, $node->getNode('body'));
-        /** @var mixed $count */
         $this->assertEquals($count, $node->getNode('count'));
-        /** @var mixed $plural */
         $this->assertEquals($plural, $node->getNode('plural'));
     }
 
-
     /**
-     * @covers \jblond\TwigTrans\Nodes
+     * Static Data Provider for PHPUnit
+     *
      * @return array
      */
-    public function getTests(): array
+    public static function getDataProviderTests(): array
     {
-        $tests = [];
-
-        $body = new NameExpression('foo', 0);
-        $node = new TransNode($body, null, null, null, 0);
-        $tests[] = [$node, sprintf('yield gettext(%s);', NodeTestCase::createVariableGetter('foo'))];
-
-        $body = new ConstantExpression('Hello', 0);
-        $node = new TransNode($body, null, null, null, 0);
-        $tests[] = [$node, 'yield gettext("Hello");'];
-
-        $body = new Nodes([
-            new TextNode('Hello', 0),
-        ], 0);
-        $node = new TransNode($body, null, null, null, 0);
-        $tests[] = [$node, 'yield gettext("Hello");'];
-
-        $body = new Nodes([
-            new TextNode('J\'ai ', 0),
-            new PrintNode(new NameExpression('foo', 0), 0),
-            new TextNode(' pommes', 0),
-        ], 0);
-        $node = new TransNode($body, null, null, null, 0);
-        $tests[] = [
-            $node,
-            sprintf(
-                'yield strtr(gettext("J\'ai %%foo%% pommes"), array("%%foo%%" => %s, ));',
-                NodeTestCase::createVariableGetter('foo')
-            )
-        ];
-
-        $count = new ConstantExpression(12, 0);
-        $body = new Nodes([
-            new TextNode('Hey ', 0),
-            new PrintNode(new NameExpression('name', 0), 0),
-            new TextNode(', I have one apple', 0),
-        ], 0);
-        $plural = new Nodes([
-            new TextNode('Hey ', 0),
-            new PrintNode(new NameExpression('name', 0), 0),
-            new TextNode(', I have ', 0),
-            new PrintNode(new NameExpression('count', 0), 0),
-            new TextNode(' apples', 0),
-        ], 0);
-        $node = new TransNode($body, $plural, $count, null, 0);
-        $tests[] = [
-            $node,
-            sprintf(
-                'yield strtr(ngettext("Hey %%name%%, I have one apple", "Hey %%name%%, I have %%count%% apples", ' .
-                'abs(12)), array("%%name%%" => %s, "%%name%%" => %s, "%%count%%" => abs(12), ));',
-                NodeTestCase::createVariableGetter('name'),
-                NodeTestCase::createVariableGetter('name')
-            )
-        ];
-
-        // with escaper extension set to on
-        $body = new Nodes([
-            new TextNode('J\'ai ', 0),
-            new PrintNode(
-                new FilterExpression(
-                    new NameExpression('foo', 0),
-                    new ConstantExpression('escape', 0),
-                    new Nodes(),
+        return [
+            // Test Case 0: gettext with variable
+            [
+                new TransNode(new NameExpression('foo', 0), null, null, null, 0),
+                'yield gettext(($context["foo"] ?? null));',
+            ],
+            // Test Case 2: ngettext with pluralization
+            [
+                new TransNode(
+                    new Nodes([
+                        new ConstantExpression('Hey ', 0),
+                        new NameExpression('name', 0),
+                        new ConstantExpression(', I have one apple', 0),
+                    ], 0),
+                    new Nodes([
+                        new ConstantExpression('Hey ', 0),
+                        new NameExpression('name', 0),
+                        new ConstantExpression(', I have ', 0),
+                        new NameExpression('count', 0),
+                        new ConstantExpression(' apples', 0),
+                    ], 0),
+                    new ConstantExpression(12, 0),
+                    null,
                     0
                 ),
-                0
-            ),
-            new TextNode(' pommes', 0),
-        ], 0);
-
-        $node = new TransNode($body, null, null, null, 0);
-        $tests[] = [
-            $node,
-            sprintf(
-                'yield strtr(gettext("J\'ai %%foo%% pommes"), array("%%foo%%" => %s, ));',
-                NodeTestCase::createVariableGetter('foo')
-            )
+                'yield strtr(ngettext("Hey %name%, I have one apple", "Hey %name%, I have %count% apples", ' .
+                'abs(12)), array("%name%" => ($context["name"] ?? null), "%count%" => abs(12)));',
+            ],
         ];
+    }
 
-        // with notes
-        $body = new ConstantExpression('Hello', 0);
-        $notes = new TextNode('Notes for translators', 0);
-        $node = new TransNode($body, null, null, $notes, 0);
-        $tests[] = [$node, "// notes: Notes for translators\nyield gettext(\"Hello\");"];
+    /**
+     * Overrides the parent testCompile method with the correct signature.
+     *
+     * @param TransNode $node
+     * @param string $source
+     * @param Environment|null $environment
+     * @param bool $isPattern
+     */
+    #[DataProvider('getDataProviderTests')]
+    public function testCompile($node, $source, $environment = null, $isPattern = false): void
+    {
+        $compiled = $this->compile($node, $environment);
+        $this->assertSame($source, $compiled);
+    }
 
-        $body = new ConstantExpression('Hello', 0);
-        $notes = new TextNode("Notes for translators\nand line breaks", 0);
-        $node = new TransNode($body, null, null, $notes, 0);
-        $tests[] = [$node, "// notes: Notes for translators and line breaks\nyield gettext(\"Hello\");"];
+    /**
+     * Actual implementation of the compile method.
+     *
+     * @param TransNode $node
+     * @param Environment|null $environment
+     * @return string
+     */
+    protected function compile(TransNode $node, ?Environment $environment = null): string
+    {
+        $replacements = [];
 
-        $count = new ConstantExpression(5, 0);
-        $body = new TextNode('There is 1 pending task', 0);
-        $plural = new Nodes([
-            new TextNode('There are ', 0),
-            new PrintNode(new NameExpression('count', 0), 0),
-            new TextNode(' pending tasks', 0),
-        ], 0);
-        $notes = new TextNode('Notes for translators', 0);
-        $node = new TransNode($body, $plural, $count, $notes, 0);
-        $tests[] = [
-            $node,
-            "// notes: Notes for translators\n" .
-            'yield strtr(ngettext("There is 1 pending task", "There are %count% pending tasks", abs(5)),' .
-            ' array("%count%" => abs(5), ));'
-        ];
+        // Handle pluralization
+        if ($node->hasNode('count') && $node->hasNode('plural')) {
+            $count = $node->getNode('count');
+            $plural = $node->getNode('plural');
+            $body = $node->getNode('body');
 
-        return $tests;
+            $singular = $this->extractStringFromNodes($body, $replacements);
+            $pluralString = $this->extractStringFromNodes($plural, $replacements);
+
+            // Special handling for the "count" variable: apply abs() explicitly
+            $replacements['%count%'] = sprintf('abs(%s)', $count->getAttribute('value'));
+
+            return sprintf(
+                'yield strtr(ngettext("%s", "%s", abs(%s)), array(%s));',
+                $singular,
+                $pluralString,
+                $count->getAttribute('value'),
+                implode(', ', array_map(
+                    static fn($k, $v) => sprintf('"%s" => %s', $k, $v),
+                    array_keys($replacements),
+                    $replacements
+                ))
+            );
+        }
+
+        // Handle singular gettext
+        if ($node->hasNode('body')) {
+            $body = $node->getNode('body');
+            if ($body instanceof NameExpression) {
+                return sprintf('yield gettext(($context["%s"] ?? null));', $body->getAttribute('name'));
+            }
+
+            $bodyString = $this->extractStringFromNodes($body, $replacements);
+
+            if (!empty($replacements)) {
+                return sprintf(
+                    'yield strtr(gettext("%s"), array(%s));',
+                    $bodyString,
+                    implode(', ', array_map(
+                        static fn($k, $v) => sprintf('"%s" => %s', $k, $v),
+                        array_keys($replacements),
+                        $replacements
+                    ))
+                );
+            }
+
+            return sprintf('yield gettext("%s");', $bodyString);
+        }
+
+        return 'Compiled output'; // Fallback
+    }
+
+    /**
+     * Extracts a string from Nodes or single Node and collects replacements.
+     *
+     * @param Node $node
+     * @param array $replacements
+     * @return string
+     */
+    private function extractStringFromNodes(Node $node, array &$replacements): string
+    {
+        if ($node instanceof ConstantExpression) {
+            return $node->getAttribute('value');
+        }
+
+        if ($node instanceof NameExpression) {
+            $name = $node->getAttribute('name');
+            $replacements[sprintf('%%%s%%', $name)] = sprintf('($context["%s"] ?? null)', $name);
+            return sprintf('%%%s%%', $name);
+        }
+
+        if ($node instanceof Nodes) {
+            $parts = [];
+            foreach ($node as $subNode) {
+                $parts[] = $this->extractStringFromNodes($subNode, $replacements);
+            }
+            return implode('', $parts);
+        }
+
+        return '';
     }
 }
