@@ -14,7 +14,7 @@ services:
       - ./conf/www.conf:/opt/bitnami/php/etc/php-fpm.d/www.conf
     environment:
       TZ: "Europe/Berlin"
-      COMPOSER_ROOT_VERSION:"1.2.1"
+      COMPOSER_ROOT_VERSION: "1.2.1"
     networks:
       - twig
   twig-web:
