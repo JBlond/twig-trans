@@ -111,3 +111,7 @@ composer run-script phpunit
 ## Contribution, wishes and bug
 
 Raise an [issue](https://github.com/JBlond/twig-trans/issues), and or Fork this repo and create a Pull request.
+
+## Dev container
+
+see [Docker Readme](DOCKER.md) and [compose file](compose.yml)
