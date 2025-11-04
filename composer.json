@@ -25,9 +25,13 @@
         "twig/twig": ">=3.0.0"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "*",
+        "phpmyadmin/motranslator": "^6.0",
         "phpunit/phpunit": "^7 || ^8 || ^9 || ^10",
+        "squizlabs/php_codesniffer": "*",
         "vimeo/psalm": "5.26.1 || ^6.8"
+    },
+    "suggest": {
+        "ext-apcu": "*"
     },
     "autoload": {
         "psr-4": {
