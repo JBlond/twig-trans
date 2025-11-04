@@ -28,7 +28,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
-     * @covers Translation::getFunctions
+     * @covers \jblond\TwigTrans\Translation::getFunctions
      * @return void
      */
     public function testGetFunctions(): void
@@ -40,7 +40,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
-     * @covers Translation::getTests
+     * @covers \jblond\TwigTrans\Translation::getTests
      * @return void
      */
     public function testGetTests(): void
@@ -52,7 +52,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
-     * @covers Translation::getTokenParsers
+     * @covers \jblond\TwigTrans\Translation::getTokenParsers
      * @return void
      */
     public function testGetTokenParsers(): void
@@ -63,7 +63,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
-     * @covers Translation::getTokenParsers
+     * @covers \jblond\TwigTrans\Translation::getTokenParsers
      * @return void
      */
     public function testGetTokenParsers2(): void
@@ -76,7 +76,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
-     * @covers Translation::getNodeVisitors
+     * @covers \jblond\TwigTrans\Translation::getNodeVisitors
      * @return void
      */
     public function testGetNodeVisitors(): void
@@ -87,7 +87,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
-     * @covers Translation::getOperators
+     * @covers \jblond\TwigTrans\Translation::getOperators
      * @return void
      */
     public function testGetOperators(): void
@@ -100,7 +100,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
-     * @covers Translation::getOperators
+     * @covers \jblond\TwigTrans\Translation::getOperators
      * @return void
      */
     public function testGetOperators2(): void
@@ -113,7 +113,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
-     * @covers Translation::transGetText
+     * @covers \jblond\TwigTrans\Translation::transGetText
      * @return void
      */
     public function testTransGetText(): void
@@ -127,7 +127,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
-     * @covers Translation::transGetText
+     * @covers \jblond\TwigTrans\Translation::transGetText
      * @return void
      */
     public function getFilters(): void
@@ -140,7 +140,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
-     * @covers Translation::transGetText
+     * @covers \jblond\TwigTrans\Translation::transGetText
      * @return void
      */
     public function testTransGetTextWithPlaceholder(): void
@@ -154,7 +154,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
-     * @covers Translation::replaceContext
+     * @covers \jblond\TwigTrans\Translation::replaceContext
      * @return void
      * @throws ReflectionException
      */
@@ -171,7 +171,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
-     * @covers Translation::replaceContext
+     * @covers \jblond\TwigTrans\Translation::replaceContext
      * @return void
      * @throws ReflectionException
      */
@@ -193,7 +193,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
-     * @covers Translation::replaceContext
+     * @covers \jblond\TwigTrans\Translation::replaceContext
      * @return void
      *@throws ReflectionException
      */
@@ -208,7 +208,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
-     * @covers Translation::transGetText
+     * @covers \jblond\TwigTrans\Translation::transGetText
      * @return void
      */
     public function testTransGetTextReturnsOriginalWhenGettextIsEmpty(): void
@@ -219,7 +219,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
-     * @covers Translation::replaceContext
+     * @covers \jblond\TwigTrans\Translation::replaceContext
      * @return void
      * @throws ReflectionException
      */
@@ -231,7 +231,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
-     * @covers Translation::replaceContext
+     * @covers \jblond\TwigTrans\Translation::replaceContext
      * @return void
      * @throws ReflectionException
      */
@@ -243,7 +243,7 @@ final class TranslationTest extends TestCase
     }
 
     /**
-     * @covers Translation::replaceContext
+     * @covers \jblond\TwigTrans\Translation::replaceContext
      * @return void
      * @throws ReflectionException
      */

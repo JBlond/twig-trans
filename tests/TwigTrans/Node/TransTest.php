@@ -23,7 +23,7 @@ use function sprintf;
 final class TransTest extends NodeTestCase
 {
     /**
-     * @covers TransNode::__construct
+     * @covers \jblond\TwigTrans\TransNode::__construct
      */
     public function testConstructor(): void
     {
