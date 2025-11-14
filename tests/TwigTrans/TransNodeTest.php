@@ -1,4 +1,5 @@
 <?php
+
 namespace jblond\TwigTrans;
 
 use PHPUnit\Framework\TestCase;
